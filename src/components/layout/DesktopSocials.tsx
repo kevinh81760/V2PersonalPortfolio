@@ -59,7 +59,7 @@ export default function DesktopSocials() {
                 index === socialLinks.length - 1
                   ? "right-0"
                   : " left-1/2 -translate-x-1/2"
-              } absolute -top-48 w-[300px] h-[180px] p-2 rounded-lg bg-[#1A1A1A]/95 border border-[#2A2A2A] backdrop-blur-md opacity-0 translate-y-4 scale-95 pointer-events-none group-hover:scale-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-10`}
+              } absolute -top-48 w-[300px] h-[180px] p-2 rounded-lg bg-[#111111]/95 border border-[#1F1F1F] backdrop-blur-md opacity-0 translate-y-4 scale-95 pointer-events-none group-hover:scale-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-10`}
             >
               <video
                 ref={(el) => {
@@ -86,10 +86,10 @@ export default function DesktopSocials() {
               }  overflow-hidden h-10 py-2 `}
             >
               <div className="flex flex-col transition-transform duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:-translate-y-1/2">
-                <span className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#E5E5E5] hover:text-[#FF0000] transition-colors mb-1.5">
+                <span className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#E5E5E5] hover:text-[#14B8A6] transition-colors mb-1.5">
                   {social.title}
                 </span>
-                <span className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#E5E5E5] hover:text-[#FF0000] transition-colors mb-1.5">
+                <span className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#E5E5E5] hover:text-[#14B8A6] transition-colors mb-1.5">
                   {social.title}
                 </span>
               </div>

@@ -120,7 +120,7 @@ function ServiceCard({
             {title}
           </h3>
 
-          <p className="text-lg lg:text-[clamp(48px,7vw,144px)] mt-2 lg:mt-0 font-semibold tracking-wider lg:tracking-normal leading-none text-[#FF0000]">
+          <p className="text-lg lg:text-[clamp(48px,7vw,144px)] mt-2 lg:mt-0 font-semibold tracking-wider lg:tracking-normal leading-none text-[#14B8A6]">
             (0{index + 1})
           </p>
         </div>
@@ -135,7 +135,7 @@ function ServiceCard({
               {keywords.map((keyword, index) => (
                 <li
                   key={index}
-                  className="text-[clamp(14px,1.2vw,24px)] px-4 py-1.5 rounded-full border border-[#333333] text-[#CCCCCC] font-semibold"
+                  className="text-[clamp(14px,1.2vw,24px)] px-4 py-1.5 rounded-full border border-[#1F1F1F] text-[#CCCCCC] font-semibold"
                 >
                   {keyword}
                 </li>

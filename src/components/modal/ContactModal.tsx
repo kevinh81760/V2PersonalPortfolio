@@ -32,11 +32,11 @@ export default function ContactModal() {
         animate={isModalOpen ? { y: "0%" } : { y: "110%" }}
         transition={{ duration: 1, ease: easeInOutQuart }}
         ref={modalRef as React.RefObject<HTMLDivElement>}
-        className="fixed top-4 bottom-4 left-4 right-4 px-6 py-10 pb-24 lg:p-12 bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl lg:rounded-3xl z-998 will-change-transform overflow-y-auto"
+        className="fixed top-4 bottom-4 left-4 right-4 px-6 py-10 pb-24 lg:p-12 bg-[#111111] border border-[#1F1F1F] rounded-2xl lg:rounded-3xl z-998 will-change-transform overflow-y-auto"
       >
         <button
           onClick={toggleModal}
-          className="fixed top-10 right-6 lg:top-8 lg:right-8 2xl:top-12 2xl:right-12 w-10 lg:w-12 2xl:w-16 h-10 lg:h-12 2xl:h-16 rounded-full flex items-center justify-center bg-[#FF0000] z-999 cursor-pointer hover:scale-110 transition-all duration-150 ease-[cubic-bezier(0.64,0.57,0.67,1.53)]"
+          className="fixed top-10 right-6 lg:top-8 lg:right-8 2xl:top-12 2xl:right-12 w-10 lg:w-12 2xl:w-16 h-10 lg:h-12 2xl:h-16 rounded-full flex items-center justify-center bg-[#14B8A6] z-999 cursor-pointer hover:scale-110 transition-all duration-150 ease-[cubic-bezier(0.64,0.57,0.67,1.53)]"
         >
           <IconX
             className="w-5 h-5 lg:w-6 lg:h-6 2xl:w-8 2xl:h-8 text-white"

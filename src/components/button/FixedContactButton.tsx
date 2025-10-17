@@ -56,7 +56,7 @@ export default function FixedContactButton({
       onClick={handleClick}
       ref={buttonRef}
       className={`${
-        isModalOpen ? "bg-[#FF0000]" : "bg-white"
+        isModalOpen ? "bg-[#14B8A6]" : "bg-white"
       } flex items-center gap-2 xl:gap-3 fixed bottom-8 left-1/2 -translate-x-1/2 pl-1 py-1 pr-4 xl:pr-6 rounded-full shadow-2xl cursor-pointer group z-999 transition-colors duration-700 delay-100 ease-in-out`}
     >
       <div className="h-12 xl:h-16 w-12 xl:w-16 relative rounded-full">
@@ -76,7 +76,7 @@ export default function FixedContactButton({
         <span
           className={`${
             isModalOpen ? "opacity-0" : ""
-          } flex items-center justify-center h-12 xl:h-16 w-12 xl:w-16 bg-[#1A1A1A] rounded-full scale-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-100 transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)]`}
+          } flex items-center justify-center h-12 xl:h-16 w-12 xl:w-16 bg-[#111111] rounded-full scale-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-100 transition-all duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)]`}
         >
           <IconMail
             className="text-white"
@@ -88,7 +88,7 @@ export default function FixedContactButton({
         <span
           className={`${
             isModalOpen ? "scale-100 opacity-100" : "scale-70 opacity-0"
-          } h-12 xl:h-16 w-12 xl:w-16 bg-[#1A1A1A] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden flex items-center justify-end transition-all duration-200 delay-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)]`}
+          } h-12 xl:h-16 w-12 xl:w-16 bg-[#111111] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden flex items-center justify-end transition-all duration-200 delay-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)]`}
         >
           <div className="flex transition-transform duration-200 ease-[cubic-bezier(0.64,0.57,0.67,1.53)] group-hover:translate-x-1/2">
             <div className="flex items-center justify-center w-12 xl:w-16">

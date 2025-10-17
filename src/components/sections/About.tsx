@@ -74,7 +74,7 @@ export default function About() {
       >
         <div className="grid grid-cols-12 gap-4">
           {/* Left Card - Project Visual */}
-          <div className="col-span-12 md:col-span-6 h-[clamp(350px,40vw,900px)] p-3 bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl relative overflow-hidden">
+          <div className="col-span-12 md:col-span-6 h-[clamp(350px,40vw,900px)] p-3 bg-[#111111] border border-[#1F1F1F] rounded-2xl relative overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={currentProjectIndex}
@@ -95,7 +95,7 @@ export default function About() {
             </AnimatePresence>
 
             {/* Status Badge */}
-            <div className="absolute top-6 left-6 px-3 py-1.5 bg-[#0A0A0A]/80 backdrop-blur-sm border border-[#2A2A2A] rounded-full">
+            <div className="absolute top-6 left-6 px-3 py-1.5 bg-[#0A0A0A]/80 backdrop-blur-sm border border-[#1F1F1F] rounded-full">
               <p className="text-xs font-semibold text-white">
                 {currentProject.status}
               </p>
@@ -103,7 +103,7 @@ export default function About() {
           </div>
 
           {/* Right Card - Project Info */}
-          <div className="col-span-12 md:col-span-6 h-[350px] lg:h-[clamp(350px,40vw,900px)] flex flex-col justify-between p-8 lg:p-12 bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl overflow-hidden relative">
+          <div className="col-span-12 md:col-span-6 h-[350px] lg:h-[clamp(350px,40vw,900px)] flex flex-col justify-between p-8 lg:p-12 bg-[#111111] border border-[#1F1F1F] rounded-2xl overflow-hidden relative">
             <div className="relative z-10">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
@@ -131,7 +131,7 @@ export default function About() {
                     {currentProject.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-[#0A0A0A] border border-[#2A2A2A] rounded-full text-xs font-semibold text-[#999999]"
+                        className="px-3 py-1 bg-[#0A0A0A] border border-[#1F1F1F] rounded-full text-xs font-semibold text-[#999999]"
                       >
                         {tech}
                       </span>
@@ -161,7 +161,7 @@ export default function About() {
                   href={currentProject.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center bg-[#0A0A0A] border border-[#2A2A2A] rounded-full hover:border-white transition-colors"
+                  className="w-10 h-10 flex items-center justify-center bg-[#0A0A0A] border border-[#1F1F1F] rounded-full hover:border-white transition-colors"
                   aria-label="View on GitHub"
                 >
                   <svg
@@ -178,7 +178,7 @@ export default function About() {
                   href={currentProject.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center bg-[#0A0A0A] border border-[#2A2A2A] rounded-full hover:border-white transition-colors"
+                  className="w-10 h-10 flex items-center justify-center bg-[#0A0A0A] border border-[#1F1F1F] rounded-full hover:border-white transition-colors"
                   aria-label="View Live Demo"
                 >
                   <svg
@@ -205,7 +205,7 @@ export default function About() {
           {/* Previous Button */}
           <button
             onClick={prevProject}
-            className="w-12 h-12 flex items-center justify-center bg-[#1A1A1A] border border-[#2A2A2A] rounded-full hover:border-white transition-colors"
+            className="w-12 h-12 flex items-center justify-center bg-[#111111] border border-[#1F1F1F] rounded-full hover:border-white transition-colors"
             aria-label="Previous project"
           >
             <svg
@@ -235,7 +235,7 @@ export default function About() {
                 className={`h-2 rounded-full transition-all ${
                   index === currentProjectIndex
                     ? "w-8 bg-white"
-                    : "w-2 bg-[#2A2A2A] hover:bg-[#999999]"
+                    : "w-2 bg-[#1F1F1F] hover:bg-[#999999]"
                 }`}
                 aria-label={`Go to project ${index + 1}`}
               />
@@ -245,7 +245,7 @@ export default function About() {
           {/* Next Button */}
           <button
             onClick={nextProject}
-            className="w-12 h-12 flex items-center justify-center bg-[#1A1A1A] border border-[#2A2A2A] rounded-full hover:border-white transition-colors"
+            className="w-12 h-12 flex items-center justify-center bg-[#111111] border border-[#1F1F1F] rounded-full hover:border-white transition-colors"
             aria-label="Next project"
           >
             <svg

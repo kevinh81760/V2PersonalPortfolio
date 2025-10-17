@@ -28,25 +28,25 @@
   }
 }
 
-/* Swiss Design - Dark Mode Service Cards */
+/* Minimal Dark - Service Cards */
 #card-0 .card-inner {
-  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+  @apply bg-[#111111] text-white border border-[#1F1F1F];
 }
 
 #card-1 .card-inner {
-  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+  @apply bg-[#111111] text-white border border-[#1F1F1F];
 }
 
 #card-2 .card-inner {
-  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+  @apply bg-[#111111] text-white border border-[#1F1F1F];
 }
 
 #card-3 .card-inner {
-  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+  @apply bg-[#111111] text-white border border-[#1F1F1F];
 }
 
 #card-4 .card-inner {
-  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+  @apply bg-[#111111] text-white border border-[#1F1F1F];
 }
 
 @keyframes blink {

@@ -143,7 +143,7 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
       {/* <div className="flex flex-col"> */}
       <h2 className="text-[clamp(48px,7vw,164px)] font-semibold tracking-tight mb-[clamp(32px,3vw,48px)] leading-[0.8]">
         <span className="text-white">Get in</span>{" "}
-        <span className="text-[#FF0000]">touch</span>
+        <span className="text-[#14B8A6]">touch</span>
       </h2>
 
       <form
@@ -154,8 +154,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
         <div className="flex flex-col lg:flex-row gap-3 w-full">
           {/* Full name */}
           <div
-            className={`flex flex-col justify-end w-full lg:w-1/3 px-6 py-4 h-28 lg:h-32 2xl:h-44 rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#FF0000]
-              ${errors.name ? "border-[#FF0000]" : "border-[#333333]"}
+            className={`flex flex-col justify-end w-full lg:w-1/3 px-6 py-4 h-28 lg:h-32 2xl:h-44 rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#14B8A6]
+              ${errors.name ? "border-[#14B8A6]" : "border-[#1F1F1F]"}
               `}
           >
             <label
@@ -179,8 +179,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
 
           {/* Email */}
           <div
-            className={`flex flex-col justify-end w-full lg:w-1/3 px-6 py-4 h-28 lg:h-32 2xl:h-44 rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#FF0000]
-              ${errors.email ? "border-[#FF0000]" : "border-[#333333]"}
+            className={`flex flex-col justify-end w-full lg:w-1/3 px-6 py-4 h-28 lg:h-32 2xl:h-44 rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#14B8A6]
+              ${errors.email ? "border-[#14B8A6]" : "border-[#1F1F1F]"}
               `}
           >
             <label
@@ -204,8 +204,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
 
           {/* Company */}
           <div
-            className={`flex flex-col justify-end w-full lg:w-1/3 px-6 py-4 h-28 lg:h-32 2xl:h-44 rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#FF0000]
-              ${errors.company ? "border-[#FF0000]" : "border-[#333333]"}
+            className={`flex flex-col justify-end w-full lg:w-1/3 px-6 py-4 h-28 lg:h-32 2xl:h-44 rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#14B8A6]
+              ${errors.company ? "border-[#14B8A6]" : "border-[#1F1F1F]"}
               `}
           >
             <label
@@ -231,8 +231,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
         <div className="flex flex-col lg:flex-row gap-3 w-full h-full">
           {/* Message */}
           <div
-            className={`flex flex-col w-full lg:w-1/3 px-6 pt-12 lg:pt-16 pb-4 h-72 lg:h-full rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#FF0000]
-              ${errors.message ? "border-[#FF0000]" : "border-[#333333]"}
+            className={`flex flex-col w-full lg:w-1/3 px-6 pt-12 lg:pt-16 pb-4 h-72 lg:h-full rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#14B8A6]
+              ${errors.message ? "border-[#14B8A6]" : "border-[#1F1F1F]"}
               `}
           >
             <label
@@ -255,8 +255,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
 
           {/* Services */}
           <div
-            className={`flex flex-col w-full lg:w-1/3 px-6 pt-12 lg:pt-16 pb-6 lg:h-full rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#FF0000] overflow-y-auto
-              ${errors.services ? "border-[#FF0000]" : "border-[#333333]"}
+            className={`flex flex-col w-full lg:w-1/3 px-6 pt-12 lg:pt-16 pb-6 lg:h-full rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#14B8A6] overflow-y-auto
+              ${errors.services ? "border-[#14B8A6]" : "border-[#1F1F1F]"}
               `}
           >
             <label
@@ -273,8 +273,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
                   className={`px-3.5 2xl:px-5 py-1.5 2xl:py-2 text-[clamp(18px,1.2vw,24px)] font-semibold rounded-full border-2 cursor-pointer transition-colors duration-300 ease-in-out
                     ${
                       services.includes(service)
-                        ? "text-white bg-[#FF0000] border-[#FF0000]"
-                        : "text-[#E5E5E5] border-[#555555] hover:border-[#FF0000]"
+                        ? "text-white bg-[#14B8A6] border-[#14B8A6]"
+                        : "text-[#E5E5E5] border-[#2A2A2A] hover:border-[#14B8A6]"
                     }`}
                 >
                   {service}
@@ -285,8 +285,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
 
           {/* Budget */}
           <div
-            className={`flex flex-col w-full lg:w-1/3 px-6 pt-12 lg:pt-16 pb-6 h-96 lg:h-full rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#FF0000]
-              ${errors.budget ? "border-[#FF0000]" : "border-[#333333]"}
+            className={`flex flex-col w-full lg:w-1/3 px-6 pt-12 lg:pt-16 pb-6 h-96 lg:h-full rounded-xl lg:rounded-2xl bg-[#0A0A0A] border-3 transition-colors duration-300 focus-within:border-[#14B8A6]
+              ${errors.budget ? "border-[#14B8A6]" : "border-[#1F1F1F]"}
               `}
           >
             <label
@@ -303,8 +303,8 @@ const ContactForm = forwardRef<ContactFormRef>((_, ref) => {
                   className={`px-3.5 2xl:px-5 py-1.5 2xl:py-2 text-[clamp(18px,1.2vw,24px)] font-semibold rounded-full border-2 cursor-pointer transition-colors duration-300 ease-in-out
                     ${
                       budget === option
-                        ? "text-white bg-[#FF0000] border-[#FF0000]"
-                        : "text-[#E5E5E5] border-[#555555] hover:border-[#FF0000]"
+                        ? "text-white bg-[#14B8A6] border-[#14B8A6]"
+                        : "text-[#E5E5E5] border-[#2A2A2A] hover:border-[#14B8A6]"
                     }`}
                 >
                   {option}
