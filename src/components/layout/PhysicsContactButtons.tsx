@@ -1,7 +1,7 @@
 "use client";
 
 import Matter from "matter-js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useContactModalStore } from "@/lib/zustand/stores";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
