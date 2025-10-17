@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 480px;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  html {
+    @apply font-sans bg-[#0A0A0A] text-white;
+  }
+
+  body {
+    @apply bg-[#0A0A0A];
+  }
+
+  ::-webkit-scrollbar {
+    @apply hidden;
+  }
+}
+
+/* Swiss Design - Dark Mode Service Cards */
+#card-0 .card-inner {
+  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+}
+
+#card-1 .card-inner {
+  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+}
+
+#card-2 .card-inner {
+  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+}
+
+#card-3 .card-inner {
+  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+}
+
+#card-4 .card-inner {
+  @apply bg-[#1A1A1A] text-white border border-[#2A2A2A];
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.blink-animation {
+  animation: blink 1s infinite;
+}
+
+/* GitHub Calendar Custom Styling */
+.github-calendar-wrapper {
+  @apply w-full;
+}
+
+.github-calendar-wrapper svg text {
+  @apply fill-[#E5E5E5] tracking-wide;
+  font-family: var(--font-saans), -apple-system, sans-serif !important;
+  font-weight: 400;
+}
+
+.github-calendar-wrapper .react-activity-calendar__count {
+  @apply text-[#E5E5E5] font-semibold tracking-tight;
+  font-family: var(--font-saans), -apple-system, sans-serif !important;
+  font-size: clamp(14px, 1.2vw, 18px) !important;
+}

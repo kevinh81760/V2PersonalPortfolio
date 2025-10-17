@@ -1,0 +1,30 @@
+"use client";
+import { useContactModalStore } from "@/lib/zustand/stores";
+
+export default function FooterCTAMobile() {
+  const toggleModal = useContactModalStore((state) => state.toggleModal);
+
+  return (
+    <div className="flex flex-col items-center gap-2 w-full absolute left-1/2 -translate-x-1/2 top-[65%] -translate-y-[65%] lg:hidden">
+      <a
+        href="mailto:jazminnwong@gmail.com"
+        className="flex flex-col items-start pt-6 pb-4 px-4 rounded-lg w-full max-w-[600px] bg-[#0A0A0A] border border-[#333333] cursor-pointer hover:border-[#FF0000] transition-colors"
+      >
+        <p className="text-[#999999] tracking-tight">Email me</p>
+
+        <p className="text-xl text-white leading-tight font-semibold">
+          jazminnwong@gmail.com
+        </p>
+      </a>
+
+      <button
+        onClick={toggleModal}
+        className="p-4 rounded-full w-full max-w-[600px] bg-[#FF0000] hover:bg-[#CC0000] transition-colors cursor-pointer"
+      >
+        <p className="text-2xl tracking-tight font-semibold text-white">
+          Send me a message
+        </p>
+      </button>
+    </div>
+  );
+}
