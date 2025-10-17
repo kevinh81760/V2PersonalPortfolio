@@ -3,13 +3,11 @@
 import LiveClock from "../ui/LiveClock";
 import FooterCTAMobile from "../layout/FooterCTAMobile";
 import DesktopSocials from "../layout/DesktopSocials";
-import { useRef } from "react";
 import PhysicsContactButtons from "../layout/PhysicsContactButtons";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useFooter } from "@/contexts/footer-context";
 
 export default function Footer() {
-  const matterContainer = useRef<HTMLDivElement>(null);
   const { width } = useWindowSize();
   const { footerRef } = useFooter();
 
@@ -27,17 +25,13 @@ export default function Footer() {
           <LiveClock />
         </div>
 
-        <div ref={matterContainer} className="h-full relative overflow-hidden">
+        <div className="h-full relative overflow-hidden">
           <h2 className="text-[clamp(50px,6vw,72px)] font-semibold text-center tracking-tight leading-[0.85] top-12 lg:top-0 left-1/2 -translate-x-1/2 absolute w-full text-white">
             Let&apos;s work{" "}
             <span className="text-[#14B8A6] z-50">together!</span>
           </h2>
 
-          {width > 768 && (
-            <PhysicsContactButtons
-              containerRef={matterContainer as React.RefObject<HTMLDivElement>}
-            />
-          )}
+          {width > 768 && <PhysicsContactButtons />}
 
           <FooterCTAMobile />
         </div>
