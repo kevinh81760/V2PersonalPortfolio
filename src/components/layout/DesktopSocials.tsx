@@ -37,7 +37,7 @@ export default function DesktopSocials() {
   return (
     <ul className="hidden md:flex md:justify-between w-full">
       <li>
-        <p className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#999999] py-2">
+        <p className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#B3B3B3] py-2">
           ©2025
         </p>
       </li>
@@ -59,7 +59,7 @@ export default function DesktopSocials() {
                 index === socialLinks.length - 1
                   ? "right-0"
                   : " left-1/2 -translate-x-1/2"
-              } absolute -top-48 w-[300px] h-[180px] p-2 rounded-lg bg-[#111111]/95 border border-[#1F1F1F] backdrop-blur-md opacity-0 translate-y-4 scale-95 pointer-events-none group-hover:scale-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-10`}
+              } absolute -top-48 w-[300px] h-[180px] p-2 rounded-lg bg-[#111111]/95 border border-[#242424] backdrop-blur-md opacity-0 translate-y-4 scale-95 pointer-events-none group-hover:scale-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-10`}
             >
               <video
                 ref={(el) => {

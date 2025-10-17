@@ -135,7 +135,7 @@ function ServiceCard({
               {keywords.map((keyword, index) => (
                 <li
                   key={index}
-                  className="text-[clamp(14px,1.2vw,24px)] px-4 py-1.5 rounded-full border border-[#1F1F1F] text-[#CCCCCC] font-semibold"
+                  className="text-[clamp(14px,1.2vw,24px)] px-4 py-1.5 rounded-full border border-[#242424] text-[#CCCCCC] font-semibold"
                 >
                   {keyword}
                 </li>

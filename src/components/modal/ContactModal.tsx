@@ -32,7 +32,7 @@ export default function ContactModal() {
         animate={isModalOpen ? { y: "0%" } : { y: "110%" }}
         transition={{ duration: 1, ease: easeInOutQuart }}
         ref={modalRef as React.RefObject<HTMLDivElement>}
-        className="fixed top-4 bottom-4 left-4 right-4 px-6 py-10 pb-24 lg:p-12 bg-[#111111] border border-[#1F1F1F] rounded-2xl lg:rounded-3xl z-998 will-change-transform overflow-y-auto"
+        className="fixed top-4 bottom-4 left-4 right-4 px-6 py-10 pb-24 lg:p-12 bg-[#111111] border border-[#242424] rounded-2xl lg:rounded-3xl z-998 will-change-transform overflow-y-auto"
       >
         <button
           onClick={toggleModal}

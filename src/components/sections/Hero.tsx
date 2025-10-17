@@ -156,7 +156,7 @@ export default function Hero() {
             delay: 2.5,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="w-full max-w-[1400px] bg-[#111111] border border-[#1F1F1F] rounded-lg p-6 md:p-8 lg:p-10"
+          className="w-full max-w-[1400px] bg-[#111111] border border-[#242424] rounded-lg p-6 md:p-8 lg:p-10"
         >
           <div className="github-calendar-wrapper">
             <GitHubCalendar

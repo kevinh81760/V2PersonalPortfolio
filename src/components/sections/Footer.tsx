@@ -17,7 +17,7 @@ export default function Footer() {
     <section id="footer" className="p-4">
       <footer
         ref={footerRef}
-        className="flex flex-col justify-between gap-8 p-4 md:px-8 pt-8 pb-6 rounded-xl bg-[#111111] border border-[#1F1F1F] h-[600px] lg:h-[clamp(700px,95vh,900px)]"
+        className="flex flex-col justify-between gap-8 p-4 md:px-8 pt-8 pb-6 rounded-xl bg-[#111111] border border-[#242424] h-[600px] lg:h-[clamp(700px,95vh,900px)]"
       >
         <div className="flex justify-between w-full">
           <p className="font-semibold text-[clamp(16px,1.6vw,24px)] text-[#14B8A6]">
@@ -65,7 +65,7 @@ export default function Footer() {
             </li>
           </ul>
 
-          <p className="font-semibold text-[#999999] w-full text-center">©2025</p>
+          <p className="font-semibold text-[#B3B3B3] w-full text-center">©2025</p>
 
           <ul className="flex flex-col items-end gap-1 w-full">
             <li>
