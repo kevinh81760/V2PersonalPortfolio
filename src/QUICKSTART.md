@@ -1,184 +1,133 @@
-# ⚡ Quick Start
+# ⚡ Quick Start Guide
 
-Get up and running in 60 seconds!
+The fastest way to get this portfolio running.
 
-## 🚀 Fastest Setup
+---
+
+## 🚀 Clone & Run (30 seconds)
 
 ```bash
-# 1. Clone the repo
+# 1. Clone
 git clone <your-repo-url>
 cd product-engineer-portfolio
 
-# 2. Remove old files
-rm App.tsx components/figma/ImageWithFallback.tsx components/ui/utils.ts tailwind.config.ts
+# 2. Install (choose one)
+bun install     # Fastest ⚡
+npm install     # or npm
+yarn install    # or yarn
+pnpm install    # or pnpm
 
-# 3. Run setup (choose your package manager)
-
-# With Bun (FASTEST! 🔥):
-chmod +x scripts/setup-bun.sh && ./scripts/setup-bun.sh
-
-# With npm/yarn/pnpm (macOS/Linux):
-chmod +x scripts/setup.sh && ./scripts/setup.sh
-
-# Windows (PowerShell as Admin):
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; .\scripts\setup.ps1
-
-# 4. Start dev server
-npm run dev
-# or with Bun for 3-10x faster startup:
-bun run dev
-
-# 5. Open http://localhost:3000
+# 3. Run
+bun run dev     # or npm run dev
+# Open: http://localhost:3000
 ```
-
-## ✨ That's It!
-
-Your portfolio is now running at **http://localhost:3000**
 
 ---
 
-## 📋 What Just Happened?
+## 📋 Essential Commands
 
-1. **Cleaned up** - Removed old React files
-2. **Updated imports** - All UI components now use `@/lib/utils`
-3. **Installed deps** - All npm packages downloaded
-4. **Ready to code** - Dev server is running
+| Command | What it does |
+|---------|-------------|
+| `bun run dev` | 🔥 Start dev server (hot reload) |
+| `bun run build` | 📦 Build for production |
+| `bun run start` | 🚀 Run production build |
+| `bun run lint` | 🔍 Check code quality |
+
+> Replace `bun` with `npm`, `yarn`, or `pnpm` if using those.
 
 ---
 
-## 🎯 Next Steps
+## 🔧 Common Tasks
 
-### Customize Your Content
-
-**1. Loading Messages**
-Edit: `components/features/loading/LoadingSequence.tsx`
-```ts
-const loadingSteps = [
-  { id: 1, text: 'Your message...', duration: 1200 },
-];
-```
-
-**2. Portfolio Info**
+### Change Content
 Edit: `components/features/portfolio/Portfolio.tsx`
-- Update social links
-- Modify sections
-- Add your content
 
-**3. Music Playlist**
-Edit: `components/features/music/SpotifyPlaylist.tsx`
-```ts
-const songs = [
-  { id: 1, title: 'Song Name', artist: 'Artist', ... },
-];
-```
+### Change Colors
+Edit: `tailwind.config.js` or `styles/globals.css`
 
-**4. Colors**
-Edit: `styles/globals.css`
-- Change CSS variables
-- Adjust theme
+### Add Components
+Create in: `components/features/`, `components/layout/`, or `components/shared/`
 
----
-
-## 🛠️ Common Commands
-
-### With npm
+### Deploy to Vercel
 ```bash
-npm run dev      # Start development
-npm run build    # Build for production
-npm run start    # Run production build
-npm run lint     # Check code quality
-```
-
-### With Bun (Faster! ⚡)
-```bash
-bun run dev      # Start development
-bun --bun run dev # Even faster with Bun runtime
-bun run build    # Build for production
-bun run start    # Run production build
-bun run lint     # Check code quality
-
-# Installing packages
-bun add [package]      # Add dependency
-bun add -d [package]   # Add dev dependency
-bun remove [package]   # Remove package
-```
-
-### With Yarn
-```bash
-yarn dev         # Start development
-yarn build       # Build for production
-yarn start       # Run production build
-yarn lint        # Check code quality
-```
-
-### With pnpm
-```bash
-pnpm dev         # Start development
-pnpm build       # Build for production
-pnpm start       # Run production build
-pnpm lint        # Check code quality
+git push origin main
+# Then import repo on vercel.com
 ```
 
 ---
 
-## 🎨 Key Features
+## 🐛 Quick Fixes
 
-- ✅ **Boot Sequence** - Premium loading animation
-- ✅ **Glass UI** - Apple Vision Pro-inspired
-- ✅ **Music Player** - Interactive audio player
-- ✅ **Smooth Animations** - GSAP + Motion powered
-- ✅ **Responsive** - Works on all devices
-- ✅ **TypeScript** - Fully typed
-- ✅ **Next.js 15** - Latest framework
-
----
-
-## 📚 More Info?
-
-| Want to... | See this file |
-|------------|---------------|
-| Understand setup | `SETUP.md` |
-| See architecture | `MIGRATION_GUIDE.md` |
-| Follow checklist | `CHECKLIST.md` |
-| Learn next steps | `NEXT_STEPS.md` |
-| Read full docs | `README.md` |
-
----
-
-## 🐛 Something Not Working?
-
-### Setup script failed?
-Run manual update:
+**Port in use?**
 ```bash
-# Find and replace in all UI components
-find components/ui -name "*.tsx" -exec sed -i '' 's/from "\.\/utils"/from "@\/lib\/utils"/g' {} +
+lsof -ti:3000 | xargs kill -9
 ```
 
-### Port 3000 in use?
-Use a different port:
+**Modules missing?**
 ```bash
-npm run dev -- -p 3001
+rm -rf node_modules .next
+bun install
 ```
 
-### Build errors?
-Clear cache and rebuild:
+**Styles broken?**
 ```bash
 rm -rf .next
-npm run dev
+bun run dev
 ```
 
 ---
 
-## 🚀 Ready to Deploy?
+## 📂 Key Files
 
-**Vercel (1-click):**
-1. Push to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repo
-4. Click Deploy
+```
+app/page.tsx              → Home page
+components/features/      → Main components
+styles/globals.css        → Global styles
+tailwind.config.js        → Theme config
+next.config.js            → Next.js config
+```
 
 ---
 
-**Questions?** Check `README.md` for full documentation.
+## 🎯 File Structure
 
-**Happy coding!** 🎉
+```
+app/
+├── layout.tsx           # Root layout
+└── page.tsx            # Home (renders Portfolio)
+
+components/
+├── features/
+│   ├── portfolio/      # Portfolio.tsx
+│   └── music/          # MusicPlayer.tsx, SpotifyPlaylist.tsx
+├── layout/             # AnimatedGradient.tsx
+└── shared/             # ImageWithFallback.tsx
+```
+
+---
+
+## 🎨 Tech Stack
+
+- ⚛️ **Next.js 15** - React framework
+- 🎨 **Tailwind CSS 4** - Styling
+- ✨ **Framer Motion** - Animations
+- 🎭 **Lucide React** - Icons
+- ⚡ **Bun/npm** - Package manager
+
+---
+
+## 📚 More Info
+
+- 📖 **[SETUP_INSTRUCTIONS.md](./SETUP_INSTRUCTIONS.md)** - Full setup guide
+- 🏗️ **[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)** - Architecture details
+- 🤝 **[CONTRIBUTING.md](./CONTRIBUTING.md)** - How to contribute
+
+---
+
+**Need more help?** Read [SETUP_INSTRUCTIONS.md](./SETUP_INSTRUCTIONS.md)
+
+**Ready to customize?** Check [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)
+
+---
+
+🚀 **Happy coding!**

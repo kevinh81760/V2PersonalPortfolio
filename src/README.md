@@ -31,16 +31,25 @@ A luxury portfolio website showcasing Product Engineer identity, blending Merced
 ```bash
 # Clone the repository
 git clone <your-repo-url>
-cd portfolio-app
+cd product-engineer-portfolio
 
-# Install dependencies
+# Install dependencies with Bun
 bun install
 
+# OR use npm/yarn if you don't have Bun
+npm install
+# yarn install
+
 # Start development server
-bun run dev
+bun run dev   # or: npm run dev
+
+# Open browser
+# http://localhost:3000
 ```
 
 Visit **http://localhost:3000** 🎉
+
+> **Note:** This project works with **npm**, **yarn**, **pnpm**, or **Bun**. Bun is recommended for fastest performance.
 
 ---
 
@@ -51,7 +60,6 @@ Visit **http://localhost:3000** 🎉
 | **[SETUP_INSTRUCTIONS.md](./SETUP_INSTRUCTIONS.md)** | Complete setup guide with troubleshooting |
 | **[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)** | Architecture guide & how everything connects |
 | **[QUICKSTART.md](./QUICKSTART.md)** | Quick reference for common commands |
-| **[BUN_GUIDE.md](./BUN_GUIDE.md)** | Bun-specific information |
 
 💡 **New to the project?** Start with [SETUP_INSTRUCTIONS.md](./SETUP_INSTRUCTIONS.md), then read [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) to understand how the app works.
 
@@ -194,12 +202,45 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
+## 🎯 Customization Guide
+
+### 1. Update Personal Information
+Edit `components/features/portfolio/Portfolio.tsx`:
+- Replace name, title, bio
+- Update social links (GitHub, LinkedIn, Email)
+- Add your projects and experience
+
+### 2. Change Colors
+Edit `tailwind.config.js` or `styles/globals.css`:
+- Update emerald accent to your brand color
+- Modify glassmorphism effects
+
+### 3. Add Images
+Use `ImageWithFallback` component:
+```jsx
+import { ImageWithFallback } from '@/components/shared/ImageWithFallback'
+
+<ImageWithFallback src="/your-image.jpg" alt="Description" />
+```
+
+---
+
 ## 📞 Contact
 
+Replace these with your own:
 - **GitHub:** [Your GitHub](https://github.com/yourusername)
 - **LinkedIn:** [Your LinkedIn](https://linkedin.com/in/yourusername)
 - **Email:** your.email@example.com
 
 ---
 
-**Built with 💚 using Next.js, React, Tailwind CSS, and Bun**
+## 🌟 Show Your Support
+
+If you found this helpful:
+- ⭐ Star this repository
+- 🍴 Fork it for your own portfolio
+- 📢 Share it with others
+
+---
+
+**Built with 💚 using Next.js 15, React 18, Tailwind CSS 4, and Framer Motion**

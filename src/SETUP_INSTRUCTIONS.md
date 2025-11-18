@@ -1,160 +1,298 @@
-# 🚀 Portfolio Setup Instructions
+# 🚀 Setup Instructions - Clone & Run Guide
 
-This is a premium portfolio application built with **Next.js**, **React**, **Tailwind CSS**, and **Bun** (JavaScript).
+This is a premium portfolio built with **Next.js 15**, **React 18**, and **Tailwind CSS 4**. This guide will help you get it running on your machine.
 
 ---
 
-## Prerequisites
+## 📋 Prerequisites
 
-Before you begin, make sure you have **Bun** installed on your system.
+You need **one** of the following package managers installed:
 
-### Install Bun
-
-**macOS/Linux:**
+### Option 1: Bun (Recommended - Fastest ⚡)
 ```bash
+# macOS/Linux
 curl -fsSL https://bun.sh/install | bash
-```
 
-**Windows (PowerShell):**
-```powershell
+# Windows (PowerShell)
 powershell -c "irm bun.sh/install.ps1 | iex"
-```
 
-Verify installation:
-```bash
+# Verify
 bun --version
 ```
 
----
-
-## Quick Start
-
-### 1. Clone the Repository
+### Option 2: Node.js + npm
 ```bash
-git clone <your-repo-url>
-cd <your-repo-name>
+# Download from: https://nodejs.org
+# Verify
+node --version
+npm --version
 ```
 
-### 2. Install Dependencies
+---
+
+## 🚀 Quick Start (3 Steps)
+
+### Step 1: Clone the Repository
+```bash
+git clone <your-repo-url>
+cd product-engineer-portfolio
+```
+
+### Step 2: Install Dependencies
+
+**With Bun (fastest):**
 ```bash
 bun install
 ```
 
-### 3. Run Development Server
+**With npm:**
 ```bash
-bun run dev
+npm install
 ```
 
-Your app will be running at **http://localhost:3000** 🎉
+**With yarn:**
+```bash
+yarn install
+```
+
+**With pnpm:**
+```bash
+pnpm install
+```
+
+### Step 3: Start Development Server
+
+```bash
+# Bun
+bun run dev
+
+# npm
+npm run dev
+
+# yarn
+yarn dev
+
+# pnpm
+pnpm dev
+```
+
+**Open your browser:** [http://localhost:3000](http://localhost:3000)
+
+You should see the portfolio loading! 🎉
 
 ---
 
-## Available Scripts
+## 🛠️ Available Scripts
 
 | Command | Description |
 |---------|-------------|
-| `bun run dev` | Start development server |
-| `bun run build` | Build for production |
+| `bun run dev` | Start development server at localhost:3000 |
+| `bun run build` | Build optimized production bundle |
 | `bun run start` | Start production server |
-| `bun run lint` | Run ESLint |
+| `bun run lint` | Run ESLint to check code quality |
+
+> Replace `bun` with `npm`, `yarn`, or `pnpm` if using those package managers.
 
 ---
 
-## Tech Stack
-
-- **Framework:** Next.js 14+ (JavaScript)
-- **Styling:** Tailwind CSS v4
-- **Package Manager:** Bun
-- **UI Library:** shadcn/ui components
-- **Animations:** Framer Motion (motion/react)
-- **Icons:** Lucide React
-
----
-
-## Project Structure
+## 📂 Project Structure
 
 ```
+product-engineer-portfolio/
 ├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
+│   ├── layout.tsx         # Root layout with metadata
+│   └── page.tsx           # Home page (Portfolio component)
+│
 ├── components/            # React components
-│   ├── features/         # Feature-specific components
-│   │   ├── music/       # Music player components
-│   │   └── portfolio/   # Portfolio interface
-│   ├── layout/          # Layout components
-│   └── ui/              # shadcn/ui components
-├── styles/              # Global styles
-│   └── globals.css      # Tailwind CSS + custom styles
-├── lib/                 # Utility functions
-└── public/              # Static assets
+│   ├── features/
+│   │   ├── portfolio/    # Main portfolio UI
+│   │   └── music/        # Music player components
+│   ├── layout/           # AnimatedGradient
+│   └── shared/           # ImageWithFallback utility
+│
+├── styles/
+│   └── globals.css       # Tailwind CSS + custom styles
+│
+├── lib/
+│   └── utils.ts          # Utility functions
+│
+├── next.config.js        # Next.js configuration
+├── tailwind.config.js    # Tailwind CSS configuration
+├── jsconfig.json         # Path aliases (@/ support)
+└── package.json          # Dependencies
 ```
 
 ---
 
-## Configuration Files
+## 🎨 Tech Stack
 
-- **`bunfig.toml`** - Bun configuration
-- **`next.config.js`** - Next.js configuration
-- **`tailwind.config.js`** - Tailwind CSS configuration
-- **`jsconfig.json`** - JavaScript path aliases
-- **`postcss.config.js`** - PostCSS configuration
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Next.js** | 15.0+ | React framework |
+| **React** | 18.3+ | UI library |
+| **Tailwind CSS** | 4.0 | Styling |
+| **Framer Motion** | 12.x | Animations |
+| **Lucide React** | Latest | Icons |
+| **GSAP** | 3.12+ | Advanced animations |
 
 ---
 
-## Troubleshooting
+## 🔧 Configuration Files
 
-### Port Already in Use
-If port 3000 is already in use:
-```bash
-bun run dev -- -p 3001
+### `jsconfig.json`
+Provides path aliases:
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
 ```
 
-### Clear Cache
-If you encounter issues:
+This allows imports like:
+```javascript
+import { Portfolio } from '@/components/features/portfolio/Portfolio'
+```
+
+### `next.config.js`
+Next.js configuration (currently minimal).
+
+### `tailwind.config.js`
+Tailwind CSS customization with emerald accent colors.
+
+---
+
+## 🚀 Production Build
+
+### Build for Production
 ```bash
-rm -rf .next node_modules bun.lockb
+bun run build
+# or: npm run build
+```
+
+This creates an optimized build in `.next/` directory.
+
+### Start Production Server
+```bash
+bun run start
+# or: npm start
+```
+
+### Deploy to Vercel (Recommended)
+
+1. **Push to GitHub:**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Deploy on Vercel:**
+   - Visit [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your GitHub repository
+   - Vercel will auto-detect Next.js and deploy! ✨
+
+---
+
+## 🐛 Troubleshooting
+
+### Port 3000 Already in Use
+```bash
+# Kill the process
+lsof -ti:3000 | xargs kill -9
+
+# Or use a different port
+PORT=3001 bun run dev
+```
+
+### Module Not Found Errors
+```bash
+# Clean install
+rm -rf node_modules .next
 bun install
 bun run dev
 ```
 
-### Bun Not Found
-Make sure Bun is in your PATH. Restart your terminal after installation.
-
----
-
-## Deployment
-
-### Vercel (Recommended)
-1. Push your code to GitHub
-2. Import project on [Vercel](https://vercel.com)
-3. Vercel will auto-detect Next.js
-4. Deploy! 🚀
-
-### Other Platforms
-Build the production version:
+### Bun Installation Issues
+If Bun doesn't work, just use npm:
 ```bash
-bun run build
-bun run start
+npm install
+npm run dev
+```
+
+### Styling Not Loading
+```bash
+# Clear Next.js cache
+rm -rf .next
+bun run dev
 ```
 
 ---
 
-## Features
+## 📱 Development Tips
 
-✨ **Premium Loading Sequence** - Mercedes-Benz COMAND inspired UI  
-🎨 **Glassmorphism Design** - Apple Vision Pro aesthetic  
-🎵 **Music Player** - Integrated Spotify-style player  
-📱 **Responsive** - Works on all devices  
-⚡ **Fast** - Powered by Bun for instant startup
+### Hot Reload
+- Save any file to see changes instantly
+- No need to restart the server
+
+### Path Aliases
+Use `@/` for cleaner imports:
+```javascript
+// ❌ Don't do this
+import { Portfolio } from '../../../components/features/portfolio/Portfolio'
+
+// ✅ Do this
+import { Portfolio } from '@/components/features/portfolio/Portfolio'
+```
+
+### Component Structure
+```
+components/
+├── features/     # Feature-specific (Portfolio, MusicPlayer)
+├── layout/       # Layout components (AnimatedGradient)
+└── shared/       # Reusable utilities (ImageWithFallback)
+```
 
 ---
 
-## Support
+## 🎯 Next Steps
 
-For issues or questions, please check the documentation files:
-- `QUICKSTART.md` - Quick reference guide
-- `BUN_GUIDE.md` - Bun-specific information
+1. ✅ **Customize Content:**
+   - Edit `components/features/portfolio/Portfolio.tsx`
+   - Update your personal info, projects, experience
+
+2. ✅ **Update Styling:**
+   - Modify `styles/globals.css` for theme changes
+   - Update `tailwind.config.js` for color palette
+
+3. ✅ **Add Your Images:**
+   - Replace placeholder images in Portfolio component
+   - Use `ImageWithFallback` component for images
+
+4. ✅ **Deploy:**
+   - Push to GitHub
+   - Deploy on Vercel (free!)
 
 ---
 
-**Built with 💚 using Bun**
+## 📚 Learn More
+
+- **[Next.js Documentation](https://nextjs.org/docs)** - Learn Next.js features
+- **[Tailwind CSS Docs](https://tailwindcss.com/docs)** - Styling reference
+- **[Framer Motion](https://www.framer.com/motion/)** - Animation library
+- **[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)** - Detailed architecture guide
+
+---
+
+## 🙋 Need Help?
+
+- **Check:** [QUICKSTART.md](./QUICKSTART.md) for common commands
+- **Read:** [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for architecture
+- **Issue?** Create a GitHub issue in your repository
+
+---
+
+**Happy coding! 🚀 Built with Next.js**
