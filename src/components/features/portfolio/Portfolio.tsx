@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { MusicPlayer } from './MusicPlayer';
-import { SpotifyPlaylist } from './SpotifyPlaylist';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { AnimatedGradient } from './AnimatedGradient';
+import { MusicPlayer } from '@/components/features/music/MusicPlayer';
+import { SpotifyPlaylist } from '@/components/features/music/SpotifyPlaylist';
+import { ImageWithFallback } from '@/components/shared/ImageWithFallback';
+import { AnimatedGradient } from '@/components/layout/AnimatedGradient';
 
 type Section = 'about' | 'projects' | 'experience' | 'audio';
 
@@ -21,11 +21,28 @@ interface PortfolioProps {
 
 export function Portfolio({ embedded = false, animationComplete = false }: PortfolioProps = {}) {
   const [activeSection, setActiveSection] = useState<Section>('about');
+  const [currentTime, setCurrentTime] = useState('');
   const [currentSong, setCurrentSong] = useState<Song>({
     title: 'Electric Dreams',
     artist: 'Synthwave Collective',
     album: 'Neon Nights'
   });
+
+  // Update time every second
+  useEffect(() => {
+    const updateTime = () => {
+      setCurrentTime(new Date().toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      }));
+    };
+    
+    updateTime(); // Set initial time
+    const interval = setInterval(updateTime, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   const navItems: { id: Section; label: string }[] = [
     { id: 'about', label: 'ABOUT' },
@@ -41,13 +58,13 @@ export function Portfolio({ embedded = false, animationComplete = false }: Portf
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-zinc-900/30 to-transparent blur-3xl" />
       
       {/* Navigation Bar */}
-      <nav className="border-b border-zinc-800/50 px-12 pt-8 pb-6">
+      <nav className="relative z-10 border-b border-zinc-800/50 px-12 pt-8 pb-6">
         <div className="flex items-center justify-between mb-6">
-          {/* Logo/Brand */}
+          {/* Logo/Brand - Swiss Design Alignment */}
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-emerald-400" />
             <span 
-              className="text-white tracking-wider text-sm opacity-70"
+              className="text-white text-sm opacity-70"
               style={{
                 fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 200,
@@ -58,51 +75,62 @@ export function Portfolio({ embedded = false, animationComplete = false }: Portf
             </span>
           </div>
 
-          {/* Right section - Time and Icons */}
+          {/* Right section - Time and Icons - Swiss Design Alignment */}
           <div className="flex items-center gap-6">
             {/* Social Icons */}
             <div className="flex items-center gap-4">
-              <a
+              <motion.a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-600 hover:text-emerald-400 transition-colors duration-300"
+                className="text-zinc-400 transition-colors duration-300"
+                aria-label="GitHub"
+                whileHover={{
+                  rotate: [0, -5, 5, -5, 5, 0],
+                  transition: { duration: 0.4 }
+                }}
               >
-                <Github className="w-4 h-4" />
-              </a>
-              <a
+                <Github className="w-5 h-5" strokeWidth={1.5} />
+              </motion.a>
+              <motion.a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-600 hover:text-emerald-400 transition-colors duration-300"
+                className="text-zinc-400 transition-colors duration-300"
+                aria-label="LinkedIn"
+                whileHover={{
+                  rotate: [0, -5, 5, -5, 5, 0],
+                  transition: { duration: 0.4 }
+                }}
               >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
+                <Linkedin className="w-5 h-5" strokeWidth={1.5} />
+              </motion.a>
+              <motion.a
                 href="mailto:your.email@example.com"
-                className="text-zinc-600 hover:text-emerald-400 transition-colors duration-300"
+                className="text-zinc-400 transition-colors duration-300"
+                aria-label="Email"
+                whileHover={{
+                  rotate: [0, -5, 5, -5, 5, 0],
+                  transition: { duration: 0.4 }
+                }}
               >
-                <Mail className="w-4 h-4" />
-              </a>
+                <Mail className="w-5 h-5" strokeWidth={1.5} />
+              </motion.a>
             </div>
 
             {/* Divider */}
-            <div className="w-px h-4 bg-zinc-800" />
+            <div className="w-px h-5 bg-zinc-700" />
 
             {/* Time/Status indicator */}
             <div 
-              className="text-zinc-500 tracking-wider"
+              className="text-zinc-400 text-sm tabular-nums min-w-[4rem]"
               style={{
                 fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 300,
                 letterSpacing: '0.15em'
               }}
             >
-              {new Date().toLocaleTimeString('en-US', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false 
-              })}
+              {currentTime}
             </div>
           </div>
         </div>
@@ -248,68 +276,21 @@ export function Portfolio({ embedded = false, animationComplete = false }: Portf
     return portfolioContent;
   }
 
-  // Full page mode - render with background and container
+  // Full page mode - render full screen
   return (
-    <div className="min-h-screen flex items-center justify-center p-8 relative overflow-hidden">
-      {/* SVG Lens Filter for liquid glass effect */}
-      <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
-        <filter id="lensFilter" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-          <feComponentTransfer in="SourceAlpha" result="alpha">
-            <feFuncA type="identity" />
-          </feComponentTransfer>
-          <feGaussianBlur in="alpha" stdDeviation="50" result="blur" />
-          <feDisplacementMap in="SourceGraphic" in2="blur" scale="50" xChannelSelector="A" yChannelSelector="A" />
-        </filter>
-      </svg>
-      
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
       {/* Animated Mercedes-themed gradient background */}
       <AnimatedGradient />
       
       {/* Horizontal Ambient Glow - Signature Element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[300px] bg-gradient-to-r from-transparent via-zinc-700/10 to-transparent blur-[100px]" />
       
-      {/* Standalone Glass Panel */}
-      <div className="relative w-full max-w-6xl">
-        <div 
-          className="relative rounded-[1.5rem] overflow-hidden flex flex-col"
-          style={{ 
-            height: '750px',
-            backdropFilter: 'blur(40px)',
-            WebkitBackdropFilter: 'blur(40px)',
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow: `
-              inset 0 1px 2px 0 rgba(255, 255, 255, 0.2),
-              0 20px 60px -10px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(0, 0, 0, 0.2)
-            `,
-          }}
-        >
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950 to-black" />
-          
-          {portfolioContent}
-        </div>
+      {/* Full Screen Content */}
+      <div className="relative flex flex-col flex-1">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950 to-black" />
         
-        {/* Dashboard control indicators */}
-        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-6 opacity-40">
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-zinc-600 text-xs tracking-wider" style={{
-              fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontWeight: 300,
-              letterSpacing: '0.1em'
-            }}>PWR</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
-            <span className="text-zinc-600 text-xs tracking-wider" style={{
-              fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontWeight: 300,
-              letterSpacing: '0.1em'
-            }}>AUX</span>
-          </div>
-        </div>
+        {portfolioContent}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import { LoadingSequence } from './components/LoadingSequence';
+import { Portfolio } from './components/features/portfolio/Portfolio';
 
 export default function App() {
-  return <LoadingSequence />;
+  return <Portfolio />;
 }
