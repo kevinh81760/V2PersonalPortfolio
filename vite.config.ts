@@ -49,6 +49,12 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
+    optimizeDeps: {
+      include: ['react-map-gl/mapbox', 'mapbox-gl'],
+      esbuildOptions: {
+        target: 'esnext',
+      },
+    },
     build: {
       target: 'esnext',
       outDir: 'build',

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { MusicPlayer } from '@/components/features/music/MusicPlayer';
-import { SpotifyPlaylist } from '@/components/features/music/SpotifyPlaylist';
-import { ImageWithFallback } from '@/components/shared/ImageWithFallback';
-import { AnimatedGradient } from '@/components/layout/AnimatedGradient';
+import { MusicPlayer } from '../music/MusicPlayer';
+import { SpotifyPlaylist } from '../music/SpotifyPlaylist';
+import { AnimatedGradient } from '../../layout/AnimatedGradient';
+import { LocationMap } from '../map/LocationMap';
 
 type Section = 'about' | 'projects' | 'experience' | 'audio';
 
@@ -16,10 +16,9 @@ interface Song {
 
 interface PortfolioProps {
   embedded?: boolean;
-  animationComplete?: boolean;
 }
 
-export function Portfolio({ embedded = false, animationComplete = false }: PortfolioProps = {}) {
+export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   const [activeSection, setActiveSection] = useState<Section>('about');
   const [currentTime, setCurrentTime] = useState('');
   const [currentSong, setCurrentSong] = useState<Song>({
@@ -123,7 +122,7 @@ export function Portfolio({ embedded = false, animationComplete = false }: Portf
 
             {/* Time/Status indicator */}
             <div 
-              className="text-zinc-400 text-sm tabular-nums min-w-[4rem]"
+              className="text-zinc-400 text-2xl tabular-nums min-w-[6rem]"
               style={{
                 fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 300,
@@ -192,8 +191,8 @@ export function Portfolio({ embedded = false, animationComplete = false }: Portf
           transition={{ duration: 0.4 }}
         >
           {activeSection === 'about' && (
-            <div className="max-w-5xl">
-              {/* About section content */}
+            <div className="w-full h-[calc(100vh-200px)]">
+              <LocationMap />
             </div>
           )}
 
