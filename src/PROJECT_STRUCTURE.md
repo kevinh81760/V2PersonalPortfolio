@@ -44,20 +44,20 @@ portfolio-app/
 │   │   │
 │   │   ├── portfolio/              # Portfolio interface
 │   │   │   └── Portfolio.tsx       # Main portfolio component
-│   │   │                           # - Tab navigation system
+│   │   │                           # - Custom tab navigation (no shadcn!)
 │   │   │                           # - Social icons + time display
 │   │   │                           # - Content sections (About, Projects, etc.)
 │   │   │                           # - Connects to MusicPlayer
 │   │   │
 │   │   └── music/                  # Music player features
 │   │       ├── MusicPlayer.tsx     # Music player UI
-│   │       │                       # - Play/pause controls
-│   │       │                       # - Track progress
-│   │       │                       # - Volume control
+│   │       │                       # - Custom play/pause controls
+│   │       │                       # - Custom progress slider
+│   │       │                       # - Custom volume control
 │   │       │                       # - Connects to SpotifyPlaylist
 │   │       │
 │   │       └── SpotifyPlaylist.tsx # Playlist display
-│   │                               # - Track list
+│   │                               # - Track list with animations
 │   │                               # - Track selection
 │   │
 │   ├── layout/                     # Layout components
@@ -65,18 +65,14 @@ portfolio-app/
 │   │                               # - Used in Portfolio.tsx
 │   │                               # - Creates luxury aesthetic
 │   │
-│   ├── ui/                         # shadcn/ui components (Reusable UI)
-│   │   ├── button.tsx              # Button component
-│   │   ├── card.tsx                # Card component
-│   │   ├── tabs.tsx                # Tab component (used in Portfolio)
-│   │   ├── slider.tsx              # Slider (used in MusicPlayer)
-│   │   └── ...                     # 40+ other UI components
-│   │
 │   ├── figma/                      # Figma-specific components
 │   │   └── ImageWithFallback.tsx   # Protected system file
 │   │
 │   └── shared/                     # Shared utility components
 │       └── ImageWithFallback.tsx   # Image component with fallback
+│                                   # - Used in Portfolio.tsx
+│
+│   NOTE: All UI is custom-built! No shadcn/ui components used.
 │
 ├── 🎨 styles/                       # Global Styles
 │   └── globals.css                  # Tailwind CSS + Custom styles
@@ -141,14 +137,20 @@ app/page.tsx
 import Portfolio from '@/components/features/portfolio/Portfolio'
 
 // Portfolio.tsx
+import { motion } from 'motion/react'
+import { Github, Linkedin, Mail } from 'lucide-react'
 import { AnimatedGradient } from '@/components/layout/AnimatedGradient'
 import { MusicPlayer } from '@/components/features/music/MusicPlayer'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { SpotifyPlaylist } from '@/components/features/music/SpotifyPlaylist'
+import { ImageWithFallback } from '@/components/shared/ImageWithFallback'
 
 // MusicPlayer.tsx
-import { SpotifyPlaylist } from './SpotifyPlaylist'
-import { Slider } from '@/components/ui/slider'
-import { Button } from '@/components/ui/button'
+import { motion } from 'motion/react'
+import { Play, Pause, SkipBack, SkipForward, Volume2, Repeat, Shuffle } from 'lucide-react'
+
+// SpotifyPlaylist.tsx
+import { motion } from 'motion/react'
+import { Play } from 'lucide-react'
 ```
 
 ---
@@ -182,11 +184,9 @@ Glassmorphism effects (backdrop-blur, bg-opacity)
 | `next` | Framework | Entire app |
 | `react` | UI library | All components |
 | `tailwindcss` | Styling | All components |
-| `motion/react` | Animations | Portfolio, MusicPlayer |
-| `lucide-react` | Icons | Portfolio navigation |
-| `@radix-ui/*` | UI primitives | shadcn/ui components |
-| `class-variance-authority` | Variant styling | Button, Badge, etc. |
-| `clsx` + `tailwind-merge` | Class merging | utils.ts → all components |
+| `motion/react` | Animations | Portfolio, MusicPlayer, Playlist |
+| `lucide-react` | Icons | All interactive elements |
+| `clsx` + `tailwind-merge` | Class merging | utils.ts (if needed) |
 
 ---
 
@@ -254,15 +254,26 @@ components/features/your-feature/YourComponent.tsx
 import { YourComponent } from '@/components/features/your-feature/YourComponent'
 ```
 
-### 3. Adding a New UI Component (shadcn/ui)
+### 3. Creating Custom UI Components
 
-```bash
-# shadcn/ui components are already included
-# Use existing components from components/ui/
+All UI in this project is **custom-built** with Tailwind CSS and Motion.
 
-# Example:
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+```tsx
+// Example: Custom button with Motion
+import { motion } from 'motion/react'
+
+export function CustomButton({ children, onClick }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      className="px-4 py-2 bg-emerald-500 text-white rounded"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {children}
+    </motion.button>
+  )
+}
 ```
 
 ### 4. Adding New Styles

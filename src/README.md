@@ -61,10 +61,9 @@ Visit **http://localhost:3000** 🎉
 
 - **Framework:** Next.js 14+ (App Router)
 - **Language:** JavaScript
-- **Styling:** Tailwind CSS v4
+- **Styling:** Tailwind CSS v4 (Custom Components)
 - **Package Manager:** Bun
-- **UI Components:** shadcn/ui
-- **Animations:** Framer Motion
+- **Animations:** Framer Motion (motion/react)
 - **Icons:** Lucide React
 
 ---
@@ -80,8 +79,8 @@ portfolio-app/
 │   ├── features/         # Feature components
 │   │   ├── portfolio/   # Main portfolio interface
 │   │   └── music/       # Music player
-│   ├── layout/          # Layout components
-│   └── ui/              # shadcn/ui components
+│   ├── layout/          # Layout components (AnimatedGradient)
+│   └── shared/          # Shared utilities (ImageWithFallback)
 ├── styles/              # Global styles
 │   └── globals.css      # Tailwind + custom CSS
 └── lib/                 # Utilities
@@ -187,11 +186,11 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- **shadcn/ui** - Beautiful UI components
 - **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animation library
-- **Lucide** - Icon library
-- **Bun** - JavaScript runtime
+- **Framer Motion** - Animation library (motion/react)
+- **Lucide** - Beautiful icon library
+- **Bun** - Lightning-fast JavaScript runtime
+- **Next.js** - React framework for production
 
 ---
 
