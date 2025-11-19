@@ -15,48 +15,15 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
 
 /* ============================================
-   FONT FACES - Helvetica Neue Custom
+   FONT FACES - System Fonts
    ============================================ */
 
-@font-face {
-  font-family: 'Helvetica Neue Custom';
-  src: url('/Helvetica%20Neue%20Font/HelveticaNeueThin.otf') format('opentype');
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Helvetica Neue Custom';
-  src: url('/Helvetica%20Neue%20Font/HelveticaNeueLight.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Helvetica Neue Custom';
-  src: url('/Helvetica%20Neue%20Font/HelveticaNeueRoman.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Helvetica Neue Custom';
-  src: url('/Helvetica%20Neue%20Font/HelveticaNeueMedium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Helvetica Neue Custom';
-  src: url('/Helvetica%20Neue%20Font/HelveticaNeueBold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-}
+/* Using system Helvetica Neue for better compatibility */
 
 /* ============================================
    TYPOGRAPHY CLASSES - Headings
@@ -64,8 +31,8 @@ body {
 
 /* Primary Heading - Large hero text */
 .heading-primary {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 2rem;
   letter-spacing: 0.1em;
   line-height: 1.2;
@@ -73,8 +40,8 @@ body {
 
 /* Secondary Heading - Section titles */
 .heading-secondary {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 1.5rem;
   letter-spacing: 0.1em;
   line-height: 1.3;
@@ -82,8 +49,8 @@ body {
 
 /* Tertiary Heading - Subsection titles */
 .heading-tertiary {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 1.125rem;
   letter-spacing: 0.08em;
   line-height: 1.4;
@@ -91,8 +58,8 @@ body {
 
 /* Small Heading - Card/Component titles */
 .heading-small {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 0.9375rem;
   letter-spacing: 0.05em;
   line-height: 1.4;
@@ -104,8 +71,8 @@ body {
 
 /* Body Text - Regular content */
 .text-body {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   font-size: 1rem;
   letter-spacing: 0.05em;
   line-height: 1.6;
@@ -113,8 +80,8 @@ body {
 
 /* Small Text - Secondary content */
 .text-small {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   font-size: 0.8125rem;
   letter-spacing: 0.03em;
   line-height: 1.5;
@@ -122,8 +89,8 @@ body {
 
 /* Tiny Text - Metadata and details */
 .text-tiny {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   line-height: 1.4;
@@ -135,8 +102,8 @@ body {
 
 /* Label - All caps labels */
 .text-label {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 0.625rem;
   letter-spacing: 0.2em;
   line-height: 1.4;
@@ -145,8 +112,8 @@ body {
 
 /* Small Label - Compact UI labels */
 .text-label-small {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   line-height: 1.3;
@@ -154,8 +121,8 @@ body {
 
 /* Navigation Text - Menu items */
 .text-nav {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   line-height: 1.4;
@@ -163,8 +130,8 @@ body {
 
 /* Brand Text - Logo and branding */
 .text-brand {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 0.875rem;
   letter-spacing: 0.2em;
   line-height: 1.2;
@@ -172,8 +139,8 @@ body {
 
 /* Time/Status Display */
 .text-time {
-  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 1.25rem;
   letter-spacing: 0.15em;
   line-height: 1.2;
