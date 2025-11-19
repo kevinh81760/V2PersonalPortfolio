@@ -15,7 +15,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       secondary: 'bg-zinc-900/60 border border-zinc-700/50 text-zinc-300 hover:bg-zinc-800/60 hover:border-zinc-600/50 shadow-lg hover:shadow-xl',
       ghost: 'text-zinc-400 hover:text-white hover:bg-zinc-800/40',
       glass: 'glass-nav border border-white/20 text-white hover:bg-white/20',
-    };
+};
 
     const sizes = {
       sm: 'px-3 py-1.5 text-sm',
@@ -23,16 +23,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       lg: 'px-6 py-3 text-lg',
     };
 
-    return (
+  return (
       <button
         ref={ref}
         className={cn(baseStyles, variants[variant], sizes[size], className)}
-        {...props}
-      >
-        {children}
+      {...props}
+    >
+      {children}
       </button>
-    );
-  }
+  );
+}
 );
 
 Button.displayName = 'Button';
@@ -59,8 +59,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       active: 'bg-linear-to-b from-emerald-400 to-emerald-500 hover:from-emerald-300 hover:to-emerald-400 shadow-2xl shadow-emerald-500/40',
     };
 
-    return (
-      <button
+  return (
+    <button
         ref={ref}
         className={cn(
           'rounded-full flex items-center justify-center',
@@ -72,9 +72,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         {...props}
       >
         {children}
-      </button>
-    );
-  }
+    </button>
+  );
+}
 );
 
 IconButton.displayName = 'IconButton';

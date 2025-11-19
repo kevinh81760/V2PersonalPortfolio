@@ -52,9 +52,6 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   // Content JSX to be reused (just the inner content, no wrappers)
   const portfolioContent = (
     <>
-      {/* Radial gradient accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-zinc-900/30 to-transparent blur-3xl" />
-      
       {/* Navigation Bar */}
       <nav className="relative z-10 border-b border-zinc-800/50 px-12 pt-8 pb-6">
         <div className="flex items-center justify-between mb-6">
@@ -219,14 +216,17 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   // Full page mode - render full screen
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Horizontal Ambient Glow - Signature Element */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[300px] bg-linear-to-r from-transparent via-zinc-700/10 to-transparent blur-[100px]" />
+      {/* Background gradient - Fixed */}
+      <div className="fixed inset-0 bg-linear-to-b from-black via-zinc-950 to-black" />
+      
+      {/* Radial gradient accent - Fixed */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-zinc-900/30 to-transparent blur-3xl pointer-events-none" />
+      
+      {/* Horizontal Ambient Glow - Fixed */}
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[300px] bg-linear-to-r from-transparent via-zinc-700/10 to-transparent blur-[100px] pointer-events-none" />
       
       {/* Full Screen Content */}
       <div className="relative flex flex-col flex-1">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-linear-to-b from-black via-zinc-950 to-black" />
-        
         {portfolioContent}
       </div>
     </div>

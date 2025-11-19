@@ -33,19 +33,19 @@ interface GlassCardProps {
  */
 export function GlassCard({ children, className, contentClassName }: GlassCardProps) {
   return (
-    <div
+    <div 
       className={cn(
         'relative overflow-hidden rounded-xl p-5 border border-white/20',
         'shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]',
         className
-      )}
+      )} 
       style={{ background: 'transparent' }}
     >
       {/* Liquid Glass background with blur */}
-      <div
+      <div 
         className="absolute inset-0 rounded-xl glass-effect"
       />
-
+      
       {/* Content wrapper */}
       <div className={cn('relative z-10', contentClassName)}>{children}</div>
     </div>
