@@ -8,9 +8,12 @@ import { LocationMap } from '../map/LocationMap';
 type Section = 'about' | 'projects' | 'experience' | 'audio';
 
 interface Song {
+  id: string;
   title: string;
   artist: string;
   album: string;
+  duration: string;
+  audioUrl: string;
 }
 
 interface PortfolioProps {
@@ -21,9 +24,12 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   const [activeSection, setActiveSection] = useState<Section>('about');
   const [currentTime, setCurrentTime] = useState('');
   const [currentSong, setCurrentSong] = useState<Song>({
-    title: 'Electric Dreams',
-    artist: 'Synthwave Collective',
-    album: 'Neon Nights'
+    id: '0',
+    title: 'Select a song to play',
+    artist: 'No song selected',
+    album: 'KevOS',
+    duration: '0:00',
+    audioUrl: ''
   });
 
   // Update time every second
@@ -68,7 +74,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
             {/* Social Icons */}
             <div className="flex items-center gap-4">
               <motion.a
-                href="https://github.com"
+                href="https://github.com/kevinh81760"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-400 transition-colors duration-300"
@@ -78,10 +84,10 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Github className="w-5 h-5" strokeWidth={1.5} />
+                <Github className="w-6 h-6" strokeWidth={1.5} />
               </motion.a>
               <motion.a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/kevinh81760/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-400 transition-colors duration-300"
@@ -91,10 +97,10 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Linkedin className="w-5 h-5" strokeWidth={1.5} />
+                <Linkedin className="w-6 h-6" strokeWidth={1.5} />
               </motion.a>
               <motion.a
-                href="mailto:your.email@example.com"
+                href="mailto:kevin.ha.dev@gmail.com"
                 className="text-zinc-400 transition-colors duration-300"
                 aria-label="Email"
                 whileHover={{
@@ -102,7 +108,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Mail className="w-5 h-5" strokeWidth={1.5} />
+                <Mail className="w-6 h-6" strokeWidth={1.5} />
               </motion.a>
             </div>
 
@@ -185,20 +191,18 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
           )}
 
           {activeSection === 'audio' && (
-            <div className="h-full grid grid-cols-2 gap-4">
+            <div className="min-h-[750px] grid grid-cols-2 gap-4 pt-6">
               {/* Left side - Music Player */}
-              <div className="flex items-center justify-center">
-                <MusicPlayer currentSong={currentSong} />
+              <div className="flex items-center justify-center h-full">
+                <div className="w-full h-full flex items-center justify-center">
+                  <MusicPlayer currentSong={currentSong} />
+                </div>
               </div>
 
               {/* Right side - Spotify Playlist */}
               <div className="h-full">
                 <SpotifyPlaylist 
-                  onSongSelect={(song) => setCurrentSong({
-                    title: song.title,
-                    artist: song.artist,
-                    album: song.album
-                  })} 
+                  onSongSelect={(song) => setCurrentSong(song)} 
                 />
               </div>
             </div>
@@ -215,7 +219,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
 
   // Full page mode - render full screen
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
+    <div className="h-screen flex flex-col relative overflow-hidden bg-black">
       {/* Background gradient - Fixed */}
       <div className="fixed inset-0 bg-linear-to-b from-black via-zinc-950 to-black" />
       

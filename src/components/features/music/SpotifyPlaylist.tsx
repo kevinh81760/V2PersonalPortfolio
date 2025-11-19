@@ -1,30 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Play, ListMusic } from 'lucide-react';
+import { songs as localSongs, Song } from '@/data/songs';
 
-interface Song {
-  id: number;
-  title: string;
-  artist: string;
-  album: string;
-  duration: string;
-}
-
-interface SpotifyPlaylistProps {
+interface MusicPlaylistProps {
   onSongSelect: (song: Song) => void;
 }
 
-const songs: Song[] = [
-  { id: 1, title: 'Electric Dreams', artist: 'Synthwave Collective', album: 'Neon Nights', duration: '3:47' },
-  { id: 2, title: 'Midnight Drive', artist: 'The Automatics', album: 'Highway Stories', duration: '4:12' },
-  { id: 3, title: 'Digital Horizon', artist: 'Future Sounds', album: 'Cyber Age', duration: '3:28' },
-  { id: 4, title: 'Velocity', artist: 'Motor City', album: 'Speed of Sound', duration: '3:55' },
-  { id: 5, title: 'Chrome & Steel', artist: 'Industrial Beats', album: 'Mechanical', duration: '4:03' },
-  { id: 6, title: 'Pulse', artist: 'Electronica Now', album: 'Rhythms', duration: '3:34' },
-];
+export function SpotifyPlaylist({ onSongSelect }: MusicPlaylistProps) {
+  const [activeSong, setActiveSong] = useState<string>('');
 
-export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
-  const [activeSong, setActiveSong] = useState(1);
+  useEffect(() => {
+    // Auto-select first song
+    if (localSongs.length > 0) {
+      setActiveSong(localSongs[0].id);
+      onSongSelect(localSongs[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSongClick = (song: Song) => {
     setActiveSong(song.id);
@@ -54,10 +47,10 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
             </div>
             <div className="min-w-0 flex-1">
               <h3 className="heading-small text-white truncate">
-                Product Engineer Playlist
+                KevOS
               </h3>
               <p className="text-label-small text-zinc-500">
-                {songs.length} tracks
+                {localSongs.length} tracks
               </p>
             </div>
           </div>
@@ -71,14 +64,14 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
           scrollbarWidth: 'thin',
           scrollbarColor: '#27272a transparent'
         }}>
-          {songs.map((song, index) => (
+          {localSongs.map((song, index) => (
             <motion.button
               key={song.id}
               onClick={() => handleSongClick(song)}
-              className={`w-full p-2 rounded-lg transition-all duration-300 group relative overflow-hidden ${
+              className={`w-full p-3.5 rounded-lg transition-all duration-300 group relative overflow-hidden ${
                 activeSong === song.id
                   ? 'bg-emerald-400/10 border border-emerald-400/30 shadow-lg shadow-emerald-400/5'
-                  : 'hover:bg-zinc-800/40 border border-transparent'
+                  : 'hover:bg-zinc-800/40 border border-transparent cursor-pointer'
               }`}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
@@ -123,13 +116,13 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
                 {/* Song Info */}
                 <div className="flex-1 text-left min-w-0">
                   <div 
-                    className={`text-small truncate transition-colors duration-300 ${
+                    className={`text-base truncate transition-colors duration-300 ${
                       activeSong === song.id ? 'text-emerald-400' : 'text-white group-hover:text-zinc-200'
                     }`}
                   >
                     {song.title}
                   </div>
-                  <div className="text-tiny text-zinc-500 truncate transition-colors duration-300 group-hover:text-zinc-400">
+                  <div className="text-small text-zinc-500 truncate transition-colors duration-300 group-hover:text-zinc-400">
                     {song.artist}
                   </div>
                 </div>
