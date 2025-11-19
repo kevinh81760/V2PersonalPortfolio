@@ -3,7 +3,6 @@ import { motion } from 'motion/react';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { MusicPlayer } from '../music/MusicPlayer';
 import { SpotifyPlaylist } from '../music/SpotifyPlaylist';
-import { AnimatedGradient } from '../../layout/AnimatedGradient';
 import { LocationMap } from '../map/LocationMap';
 
 type Section = 'about' | 'projects' | 'experience' | 'audio';
@@ -60,16 +59,9 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
       <nav className="relative z-10 border-b border-zinc-800/50 px-12 pt-8 pb-6">
         <div className="flex items-center justify-between mb-6">
           {/* Logo/Brand - Swiss Design Alignment */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3" style={{ marginLeft: '-1px' }}>
             <div className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span 
-              className="text-white text-sm opacity-70"
-              style={{
-                fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontWeight: 200,
-                letterSpacing: '0.2em'
-              }}
-            >
+            <span className="text-brand text-white opacity-70">
               PRODUCT ENGINEER
             </span>
           </div>
@@ -121,14 +113,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
             <div className="w-px h-5 bg-zinc-700" />
 
             {/* Time/Status indicator */}
-            <div 
-              className="text-zinc-400 text-2xl tabular-nums min-w-[6rem]"
-              style={{
-                fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontWeight: 300,
-                letterSpacing: '0.15em'
-              }}
-            >
+            <div className="text-time text-zinc-400 min-w-16">
               {currentTime}
             </div>
           </div>
@@ -151,29 +136,13 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
             >
               {/* Liquid glass effect for active tabs */}
               {activeSection === item.id && (
-                <>
-                  {/* Glass background with blur */}
-                  <div 
-                    className="absolute inset-0 rounded-full border border-white/20"
-                    style={{
-                      backdropFilter: 'blur(12px)',
-                      WebkitBackdropFilter: 'blur(12px)',
-                      background: 'rgba(255, 255, 255, 0.1)',
-                      boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2)'
-                    }}
-                  />
-                </>
+                <div className="absolute inset-0 rounded-full border border-white/20 glass-nav" />
               )}
               
               <span 
-                className={`relative z-10 text-xs tracking-wider transition-colors duration-300 ${
+                className={`relative z-10 text-nav transition-colors duration-300 ${
                   activeSection === item.id ? 'text-white' : 'text-zinc-600 hover:text-zinc-400'
                 }`}
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: activeSection === item.id ? 300 : 300,
-                  letterSpacing: '0.15em'
-                }}
               >
                 {item.label}
               </span>
@@ -198,24 +167,10 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
 
           {activeSection === 'projects' && (
             <div>
-              <h2 
-                className="text-white mb-4"
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 200,
-                  letterSpacing: '0.1em'
-                }}
-              >
+              <h2 className="heading-secondary text-white mb-4">
                 Projects
               </h2>
-              <p 
-                className="text-zinc-400"
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 300,
-                  letterSpacing: '0.05em'
-                }}
-              >
+              <p className="text-body text-zinc-400">
                 Your projects content goes here
               </p>
             </div>
@@ -223,24 +178,10 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
 
           {activeSection === 'experience' && (
             <div>
-              <h2 
-                className="text-white mb-4"
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 200,
-                  letterSpacing: '0.1em'
-                }}
-              >
+              <h2 className="heading-secondary text-white mb-4">
                 Experience
               </h2>
-              <p 
-                className="text-zinc-400"
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 300,
-                  letterSpacing: '0.05em'
-                }}
-              >
+              <p className="text-body text-zinc-400">
                 Your experience content goes here
               </p>
             </div>
@@ -278,16 +219,13 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   // Full page mode - render full screen
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Animated Mercedes-themed gradient background */}
-      <AnimatedGradient />
-      
       {/* Horizontal Ambient Glow - Signature Element */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[300px] bg-gradient-to-r from-transparent via-zinc-700/10 to-transparent blur-[100px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[300px] bg-linear-to-r from-transparent via-zinc-700/10 to-transparent blur-[100px]" />
       
       {/* Full Screen Content */}
       <div className="relative flex flex-col flex-1">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950 to-black" />
+        <div className="absolute inset-0 bg-linear-to-b from-black via-zinc-950 to-black" />
         
         {portfolioContent}
       </div>

@@ -27,7 +27,7 @@ export function LocationMap() {
         marginRight: '4px', // Matches nav px-12 (3rem = 48px)
         marginTop: '24px'
       }}
-      className="mapbox-container"
+      className="mapbox-container overflow-hidden rounded-xl border border-white/20 shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]"
     >
       <style>{`
         .mapbox-container .mapboxgl-ctrl-logo,
@@ -40,7 +40,7 @@ export function LocationMap() {
         onMove={handleMove}
         mapboxAccessToken={MAPBOX_TOKEN}
         mapStyle={MAP_CONFIG.mapStyle}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', borderRadius: '0.75rem' }}
         attributionControl={false}
         reuseMaps
       >

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Play, Music2, ListMusic } from 'lucide-react';
+import { Play, ListMusic } from 'lucide-react';
 
 interface Song {
   id: number;
@@ -49,37 +49,21 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
         {/* Compact Header */}
         <div className="mb-4">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/30">
+            <div className="w-9 h-9 rounded-lg bg-linear-to-br from-emerald-400 via-emerald-500 to-emerald-600 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/30">
               <ListMusic className="w-5 h-5 text-black" />
             </div>
             <div className="min-w-0 flex-1">
-              <h3 
-                className="text-white tracking-wide truncate"
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 200,
-                  letterSpacing: '0.05em',
-                  fontSize: '0.9375rem'
-                }}
-              >
+              <h3 className="heading-small text-white truncate">
                 Product Engineer Playlist
               </h3>
-              <p 
-                className="text-zinc-500 tracking-wider"
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 300,
-                  letterSpacing: '0.1em',
-                  fontSize: '0.625rem'
-                }}
-              >
+              <p className="text-label-small text-zinc-500">
                 {songs.length} tracks
               </p>
             </div>
           </div>
 
           {/* Divider line */}
-          <div className="h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
+          <div className="h-px bg-linear-to-r from-transparent via-zinc-700/50 to-transparent" />
         </div>
 
         {/* Song List - Compact styling */}
@@ -101,12 +85,12 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
             >
               {/* Active song glow effect */}
               {activeSong === song.id && (
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/5 via-emerald-400/10 to-emerald-400/5 rounded-lg" />
+                <div className="absolute inset-0 bg-linear-to-r from-emerald-400/5 via-emerald-400/10 to-emerald-400/5 rounded-lg" />
               )}
 
               <div className="flex items-center gap-2 relative z-10">
                 {/* Track Number / Equalizer Animation */}
-                <div className="w-7 flex items-center justify-center flex-shrink-0">
+                <div className="w-7 flex items-center justify-center shrink-0">
                   {activeSong === song.id ? (
                     <div className="flex gap-0.5 items-end h-4">
                       <motion.div
@@ -127,15 +111,9 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
                     </div>
                   ) : (
                     <span 
-                      className={`tracking-wider transition-colors duration-300 ${
+                      className={`text-tiny transition-colors duration-300 ${
                         activeSong === song.id ? 'text-emerald-400' : 'text-zinc-600 group-hover:text-zinc-400'
                       }`}
-                      style={{
-                        fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontWeight: 300,
-                        fontSize: '0.6875rem',
-                        letterSpacing: '0.1em'
-                      }}
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -145,48 +123,28 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
                 {/* Song Info */}
                 <div className="flex-1 text-left min-w-0">
                   <div 
-                    className={`tracking-wide truncate transition-colors duration-300 ${
+                    className={`text-small truncate transition-colors duration-300 ${
                       activeSong === song.id ? 'text-emerald-400' : 'text-white group-hover:text-zinc-200'
                     }`}
-                    style={{
-                      fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontWeight: 200,
-                      letterSpacing: '0.03em',
-                      fontSize: '0.8125rem'
-                    }}
                   >
                     {song.title}
                   </div>
-                  <div 
-                    className="text-zinc-500 tracking-wide truncate transition-colors duration-300 group-hover:text-zinc-400"
-                    style={{
-                      fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontWeight: 300,
-                      letterSpacing: '0.02em',
-                      fontSize: '0.6875rem'
-                    }}
-                  >
+                  <div className="text-tiny text-zinc-500 truncate transition-colors duration-300 group-hover:text-zinc-400">
                     {song.artist}
                   </div>
                 </div>
 
                 {/* Duration */}
                 <div 
-                  className={`tracking-wider flex-shrink-0 transition-colors duration-300 ${
+                  className={`text-tiny shrink-0 transition-colors duration-300 ${
                     activeSong === song.id ? 'text-emerald-400' : 'text-zinc-600 group-hover:text-zinc-500'
                   }`}
-                  style={{
-                    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontWeight: 300,
-                    fontSize: '0.6875rem',
-                    letterSpacing: '0.1em'
-                  }}
                 >
                   {song.duration}
                 </div>
 
                 {/* Play button (visible on hover or active) */}
-                <div className={`w-7 h-7 flex items-center justify-center flex-shrink-0 transition-opacity duration-300 ${
+                <div className={`w-7 h-7 flex items-center justify-center shrink-0 transition-opacity duration-300 ${
                   activeSong === song.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                 }`}>
                   <div className="w-6 h-6 rounded-full bg-emerald-400/20 border border-emerald-400/30 flex items-center justify-center hover:bg-emerald-400/30 transition-all duration-300 shadow-lg shadow-emerald-400/10">
@@ -203,27 +161,11 @@ export function SpotifyPlaylist({ onSongSelect }: SpotifyPlaylistProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50" />
-              <span 
-                className="text-zinc-500 tracking-wider"
-                style={{
-                  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 300,
-                  fontSize: '0.625rem',
-                  letterSpacing: '0.1em'
-                }}
-              >
+              <span className="text-label-small text-zinc-500">
                 AUDIO READY
               </span>
             </div>
-            <span 
-              className="text-zinc-600 tracking-wider"
-              style={{
-                fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontWeight: 300,
-                fontSize: '0.625rem',
-                letterSpacing: '0.1em'
-              }}
-            >
+            <span className="text-label-small text-zinc-600">
               320KBPS
             </span>
           </div>

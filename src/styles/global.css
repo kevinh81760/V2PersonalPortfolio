@@ -1,0 +1,294 @@
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* ============================================
+   FONT FACES - Helvetica Neue Custom
+   ============================================ */
+
+@font-face {
+  font-family: 'Helvetica Neue Custom';
+  src: url('/Helvetica%20Neue%20Font/HelveticaNeueThin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue Custom';
+  src: url('/Helvetica%20Neue%20Font/HelveticaNeueLight.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue Custom';
+  src: url('/Helvetica%20Neue%20Font/HelveticaNeueRoman.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue Custom';
+  src: url('/Helvetica%20Neue%20Font/HelveticaNeueMedium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue Custom';
+  src: url('/Helvetica%20Neue%20Font/HelveticaNeueBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ============================================
+   TYPOGRAPHY CLASSES - Headings
+   ============================================ */
+
+/* Primary Heading - Large hero text */
+.heading-primary {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
+
+/* Secondary Heading - Section titles */
+.heading-secondary {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+}
+
+/* Tertiary Heading - Subsection titles */
+.heading-tertiary {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+/* Small Heading - Card/Component titles */
+.heading-small {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 0.9375rem;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+/* ============================================
+   TYPOGRAPHY CLASSES - Body Text
+   ============================================ */
+
+/* Body Text - Regular content */
+.text-body {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+
+/* Small Text - Secondary content */
+.text-small {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+/* Tiny Text - Metadata and details */
+.text-tiny {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+}
+
+/* ============================================
+   TYPOGRAPHY CLASSES - Labels & UI Text
+   ============================================ */
+
+/* Label - All caps labels */
+.text-label {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Small Label - Compact UI labels */
+.text-label-small {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+}
+
+/* Navigation Text - Menu items */
+.text-nav {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
+}
+
+/* Brand Text - Logo and branding */
+.text-brand {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+}
+
+/* Time/Status Display */
+.text-time {
+  font-family: 'Helvetica Neue Custom', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 1.25rem;
+  letter-spacing: 0.15em;
+  line-height: 1.2;
+}
+
+/* ============================================
+   UTILITY CLASSES - Glass Effects
+   ============================================ */
+
+/* Liquid Glass Effect */
+.glass-effect {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Glass Effect for Navigation */
+.glass-nav {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Glass Card Base */
+.glass-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1), 
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   UTILITY CLASSES - Scrollbar Styling
+   ============================================ */
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #27272a;
+  border-radius: 3px;
+}
+
+/* ============================================
+   UTILITY CLASSES - Common Patterns
+   ============================================ */
+
+/* Tabular Numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+.transition-colors-smooth {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ============================================
+   COMPONENT-SPECIFIC PATTERNS
+   ============================================ */
+
+/* OLED Display Style */
+.oled-display {
+  background: linear-gradient(to bottom, #0a0a0a, #000000, #0a0a0a);
+  box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.9);
+}
+
+/* Divider Lines */
+.divider-gradient-horizontal {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(63, 63, 70, 0.5), transparent);
+}
+
+.divider-gradient-vertical {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(63, 63, 70, 0.5), transparent);
+}
+
+/* Active State Glow */
+.glow-emerald {
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+}
+
+/* Button Base Styles */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-weight: 300;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.btn-base:focus-visible {
+  outline: 2px solid rgba(52, 211, 153, 0.5);
+  outline-offset: 2px;
+}

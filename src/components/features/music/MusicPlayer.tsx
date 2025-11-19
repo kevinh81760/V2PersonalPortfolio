@@ -12,8 +12,8 @@ interface MusicPlayerProps {
 
 export function MusicPlayer({ currentSong }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(45);
-  const [volume, setVolume] = useState(70);
+  const [progress] = useState(45);
+  const [volume] = useState(70);
 
   return (
     <div className="relative w-full">
@@ -34,13 +34,13 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
         <div className="relative z-10">
           {/* Premium OLED-style Display */}
           <div className="bg-black rounded-xl p-4 mb-5 border border-zinc-800/60 shadow-[inset_0_4px_20px_rgba(0,0,0,0.9)]">
-            <div className="bg-gradient-to-b from-zinc-950 via-black to-zinc-950 rounded-lg p-3">
+            <div className="bg-linear-to-b from-zinc-950 via-black to-zinc-950 rounded-lg p-3">
               {/* Compact Visualizer */}
               <div className="mb-4 flex items-end justify-center gap-1 h-16">
                 {[...Array(10)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="w-1 bg-gradient-to-t from-emerald-400 via-emerald-300 to-emerald-200 rounded-full shadow-lg shadow-emerald-400/50"
+                    className="w-1 bg-linear-to-t from-emerald-400 via-emerald-300 to-emerald-200 rounded-full shadow-lg shadow-emerald-400/50"
                     animate={{
                       height: isPlaying ? ['20%', '75%', '40%', '65%', '30%', '70%'] : '20%',
                     }}
@@ -56,37 +56,13 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
 
               {/* Song Info Display - Compact */}
               <div className="mb-4">
-                <div 
-                  className="text-emerald-400 mb-2 tracking-[0.2em] text-center"
-                  style={{
-                    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontWeight: 300,
-                    letterSpacing: '0.2em',
-                    fontSize: '0.625rem'
-                  }}
-                >
+                <div className="text-label text-emerald-400 mb-2 text-center">
                   NOW PLAYING
                 </div>
-                <div 
-                  className="text-white mb-1 tracking-wide text-center truncate"
-                  style={{
-                    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontWeight: 200,
-                    letterSpacing: '0.05em',
-                    fontSize: '0.9375rem'
-                  }}
-                >
+                <div className="heading-small text-white mb-1 text-center truncate">
                   {currentSong.title}
                 </div>
-                <div 
-                  className="text-zinc-500 tracking-wide text-center truncate"
-                  style={{
-                    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontWeight: 300,
-                    letterSpacing: '0.05em',
-                    fontSize: '0.75rem'
-                  }}
-                >
+                <div className="text-tiny text-zinc-500 text-center truncate">
                   {currentSong.artist}
                 </div>
               </div>
@@ -95,33 +71,17 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
               <div className="space-y-2">
                 <div className="w-full h-1 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800/50 shadow-inner">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400 shadow-lg shadow-emerald-400/30"
+                    className="h-full bg-linear-to-r from-emerald-400 via-emerald-300 to-emerald-400 shadow-lg shadow-emerald-400/30"
                     style={{ width: `${progress}%` }}
                     animate={{ width: isPlaying ? '100%' : `${progress}%` }}
                     transition={{ duration: isPlaying ? 180 : 0, ease: 'linear' }}
                   />
                 </div>
                 <div className="flex justify-between px-1">
-                  <span 
-                    className="text-zinc-500 tracking-wider"
-                    style={{
-                      fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontWeight: 300,
-                      fontSize: '0.625rem',
-                      letterSpacing: '0.1em'
-                    }}
-                  >
+                  <span className="text-label-small text-zinc-500">
                     1:24
                   </span>
-                  <span 
-                    className="text-zinc-500 tracking-wider"
-                    style={{
-                      fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontWeight: 300,
-                      fontSize: '0.625rem',
-                      letterSpacing: '0.1em'
-                    }}
-                  >
+                  <span className="text-label-small text-zinc-500">
                     3:47
                   </span>
                 </div>
@@ -141,7 +101,7 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
             
             <motion.button 
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-12 h-12 rounded-full bg-gradient-to-b from-emerald-400 to-emerald-500 flex items-center justify-center hover:from-emerald-300 hover:to-emerald-400 transition-all duration-300 shadow-2xl shadow-emerald-500/40"
+              className="w-12 h-12 rounded-full bg-linear-to-b from-emerald-400 to-emerald-500 flex items-center justify-center hover:from-emerald-300 hover:to-emerald-400 transition-all duration-300 shadow-2xl shadow-emerald-500/40"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -163,22 +123,14 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
 
           {/* Volume Control - Compact */}
           <div className="flex items-center gap-3 px-2">
-            <Volume2 className="w-4 h-4 text-zinc-400 flex-shrink-0" />
+            <Volume2 className="w-4 h-4 text-zinc-400 shrink-0" />
             <div className="flex-1 h-1 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800/50 shadow-inner">
               <div 
-                className="h-full bg-gradient-to-r from-zinc-500 via-zinc-400 to-zinc-300 shadow-lg"
+                className="h-full bg-linear-to-r from-zinc-500 via-zinc-400 to-zinc-300 shadow-lg"
                 style={{ width: `${volume}%` }}
               />
             </div>
-            <span 
-              className="text-zinc-500 tracking-wider w-8 text-right flex-shrink-0"
-              style={{
-                fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontWeight: 300,
-                fontSize: '0.75rem',
-                letterSpacing: '0.1em'
-              }}
-            >
+            <span className="text-tiny text-zinc-500 w-8 text-right shrink-0">
               {volume}
             </span>
           </div>
