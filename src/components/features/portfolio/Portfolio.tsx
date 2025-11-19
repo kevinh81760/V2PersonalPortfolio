@@ -23,6 +23,7 @@ interface PortfolioProps {
 export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   const [activeSection, setActiveSection] = useState<Section>('about');
   const [currentTime, setCurrentTime] = useState('');
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState<Song>({
     id: '0',
     title: 'Select a song to play',
@@ -59,7 +60,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   const portfolioContent = (
     <>
       {/* Navigation Bar */}
-      <nav className="relative z-10 border-b border-zinc-800/50 px-12 pt-8 pb-6">
+      <nav className="relative z-10 border-b border-zinc-800/50 px-12 pt-8 pb-6 overflow-visible">
         <div className="flex items-center justify-between mb-6">
           {/* Logo/Brand - Swiss Design Alignment */}
           <div className="flex items-center gap-3" style={{ marginLeft: '-1px' }}>
@@ -123,13 +124,13 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
         </div>
 
         {/* Navigation Items */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 overflow-visible">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveSection(item.id)}
-              className={`relative px-6 py-2 transition-all duration-300 ${
-                activeSection === item.id ? 'overflow-hidden rounded-full' : ''
+              className={`relative px-6 py-2 transition-all duration-300 rounded-full ${
+                activeSection === item.id ? 'overflow-visible' : ''
               }`}
               style={
                 activeSection === item.id
@@ -195,14 +196,20 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
               {/* Left side - Music Player */}
               <div className="flex items-center justify-center h-full">
                 <div className="w-full h-full flex items-center justify-center">
-                  <MusicPlayer currentSong={currentSong} />
+                  <MusicPlayer 
+                    currentSong={currentSong} 
+                    isPlaying={isPlaying}
+                    setIsPlaying={setIsPlaying}
+                  />
                 </div>
               </div>
 
               {/* Right side - Spotify Playlist */}
               <div className="h-full">
                 <SpotifyPlaylist 
-                  onSongSelect={(song) => setCurrentSong(song)} 
+                  onSongSelect={(song) => setCurrentSong(song)}
+                  isPlaying={isPlaying}
+                  setIsPlaying={setIsPlaying}
                 />
               </div>
             </div>
@@ -219,7 +226,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
 
   // Full page mode - render full screen
   return (
-    <div className="h-screen flex flex-col relative overflow-hidden bg-black">
+    <div className="h-screen flex flex-col relative bg-black">
       {/* Background gradient - Fixed */}
       <div className="fixed inset-0 bg-linear-to-b from-black via-zinc-950 to-black" />
       
@@ -230,7 +237,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[300px] bg-linear-to-r from-transparent via-zinc-700/10 to-transparent blur-[100px] pointer-events-none" />
       
       {/* Full Screen Content */}
-      <div className="relative flex flex-col flex-1">
+      <div className="relative flex flex-col flex-1 overflow-visible">
         {portfolioContent}
       </div>
     </div>

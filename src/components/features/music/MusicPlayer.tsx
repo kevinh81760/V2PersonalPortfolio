@@ -9,10 +9,11 @@ interface MusicPlayerProps {
     album: string;
     audioUrl?: string;
   };
+  isPlaying: boolean;
+  setIsPlaying: (playing: boolean) => void;
 }
 
-export function MusicPlayer({ currentSong }: MusicPlayerProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
+export function MusicPlayer({ currentSong, isPlaying, setIsPlaying }: MusicPlayerProps) {
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(30); // Preview is 30 seconds
@@ -31,6 +32,8 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
   };
 
   const handleVolumeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsDraggingVolume(true);
     handleVolumeChange(e);
   };
@@ -103,7 +106,8 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
       setProgress(0);
       setCurrentTime(0);
     }
-  }, [currentSong.audioUrl, volume]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSong.audioUrl]);
 
   // Update volume when slider changes
   useEffect(() => {
@@ -149,36 +153,14 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
         {/* Content wrapper */}
         <div className="relative z-10 flex flex-col justify-between" style={{ minHeight: '700px' }}>
           {/* Premium OLED-style Display */}
-          <div className="bg-black rounded-xl p-6 mb-6 border border-zinc-800/60 shadow-[inset_0_4px_20px_rgba(0,0,0,0.9)]">
-            <div className="bg-linear-to-b from-zinc-950 via-black to-zinc-950 rounded-lg p-4">
-              {/* Compact Visualizer */}
-              <div className="mb-5 flex items-end justify-center gap-1 h-20">
-                {[...Array(10)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="w-1 bg-linear-to-t from-emerald-400 via-emerald-300 to-emerald-200 rounded-full shadow-lg shadow-emerald-400/50"
-                    animate={{
-                      height: isPlaying ? ['20%', '75%', '40%', '65%', '30%', '70%'] : '20%',
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      delay: i * 0.08,
-                      ease: "easeInOut"
-                    }}
-                  />
-                ))}
-              </div>
-
+          <div className="bg-black rounded-xl p-6 border border-zinc-800/60 shadow-[inset_0_4px_20px_rgba(0,0,0,0.9)]">
+            <div className="bg-linear-to-b from-zinc-950 via-black to-zinc-950 rounded-lg p-4 flex flex-col justify-end" style={{ minHeight: '500px' }}>
               {/* Song Info Display - Compact */}
-              <div className="mb-5">
-                <div className="text-label text-emerald-400 mb-3 text-center">
-                  NOW PLAYING
-                </div>
-                <div className="heading-small text-white mb-2 text-center truncate">
+              <div className="mb-3">
+                <div className="heading-tertiary text-white mb-2 text-left truncate">
                   {currentSong.title}
                 </div>
-                <div className="text-tiny text-zinc-500 text-center truncate">
+                <div className="text-body text-zinc-500 text-left truncate">
                   {currentSong.artist}
                 </div>
               </div>
@@ -192,10 +174,10 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
                   />
                 </div>
                 <div className="flex justify-between px-1">
-                  <span className="text-label-small text-zinc-500">
+                  <span className="text-label text-zinc-500">
                     {formatTime(currentTime)}
                   </span>
-                  <span className="text-label-small text-zinc-500">
+                  <span className="text-label text-zinc-500">
                     {formatTime(duration)}
                   </span>
                 </div>
@@ -203,49 +185,52 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
             </div>
           </div>
 
-          {/* Control Buttons - Compact */}
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <button className="w-8 h-8 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
-              <Shuffle className="w-3 h-3 text-zinc-400" />
-            </button>
-            
-            <button className="w-9 h-9 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
-              <SkipBack className="w-3.5 h-3.5 text-zinc-300" />
-            </button>
-            
-            <motion.button 
-              onClick={togglePlayPause}
-              disabled={!currentSong.audioUrl}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-2xl ${
-                currentSong.audioUrl 
-                  ? 'bg-linear-to-b from-emerald-400 to-emerald-500 hover:from-emerald-300 hover:to-emerald-400 shadow-emerald-500/40 cursor-pointer' 
-                  : 'bg-zinc-700 cursor-not-allowed opacity-50'
-              }`}
-              whileHover={currentSong.audioUrl ? { scale: 1.05 } : {}}
-              whileTap={currentSong.audioUrl ? { scale: 0.95 } : {}}
-            >
-              {isPlaying ? (
-                <Pause className="w-5 h-5 text-black" fill="black" />
-              ) : (
-                <Play className="w-5 h-5 text-black ml-0.5" fill="black" />
-              )}
-            </motion.button>
-            
-            <button className="w-9 h-9 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
-              <SkipForward className="w-3.5 h-3.5 text-zinc-300" />
-            </button>
+          {/* Controls Section - Grouped Together */}
+          <div className="space-y-8">
+            {/* Control Buttons - Compact */}
+            <div className="flex items-center justify-center gap-3">
+              <button className="w-10 h-10 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <Shuffle className="w-4 h-4 text-zinc-400" />
+              </button>
+              
+              <button className="w-11 h-11 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <SkipBack className="w-4.5 h-4.5 text-zinc-300" />
+              </button>
+              
+              <motion.button 
+                onClick={togglePlayPause}
+                disabled={!currentSong.audioUrl}
+                className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 shadow-2xl ${
+                  currentSong.audioUrl 
+                    ? 'bg-linear-to-b from-emerald-400 to-emerald-500 hover:from-emerald-300 hover:to-emerald-400 shadow-emerald-500/40 cursor-pointer' 
+                    : 'bg-zinc-700 cursor-not-allowed opacity-50'
+                }`}
+                whileHover={currentSong.audioUrl ? { scale: 1.05 } : {}}
+                whileTap={currentSong.audioUrl ? { scale: 0.95 } : {}}
+              >
+                {isPlaying ? (
+                  <Pause className="w-6 h-6 text-black" fill="black" />
+                ) : (
+                  <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
+                )}
+              </motion.button>
+              
+              <button className="w-11 h-11 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <SkipForward className="w-4.5 h-4.5 text-zinc-300" />
+              </button>
 
-            <button className="w-8 h-8 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
-              <Repeat className="w-3 h-3 text-zinc-400" />
-            </button>
-          </div>
+              <button className="w-10 h-10 rounded-full bg-zinc-900/60 border border-zinc-700/50 flex items-center justify-center hover:bg-zinc-800/60 hover:border-zinc-600/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <Repeat className="w-4 h-4 text-zinc-400" />
+              </button>
+            </div>
 
-          {/* Volume Control - Smooth Spotify-style */}
-          <div className="flex items-center gap-3 px-2">
-            <Volume2 className="w-4 h-4 text-zinc-400 shrink-0" />
+            {/* Volume Control - Smooth Spotify-style */}
+            <div className="flex items-center gap-3 px-2" onClick={(e) => e.stopPropagation()}>
+              <Volume2 className="w-4 h-4 text-zinc-400 shrink-0" />
             <div 
               ref={volumeBarRef}
               onMouseDown={handleVolumeMouseDown}
+              onClick={(e) => e.stopPropagation()}
               className="flex-1 h-1 cursor-pointer relative group py-2 -my-2"
             >
               {/* Background track */}
@@ -265,6 +250,7 @@ export function MusicPlayer({ currentSong }: MusicPlayerProps) {
             <span className="text-tiny text-zinc-500 w-8 text-right shrink-0">
               {volume}
             </span>
+          </div>
           </div>
         </div>
       </div>

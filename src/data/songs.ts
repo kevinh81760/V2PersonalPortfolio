@@ -15,18 +15,26 @@ export const songs: Song[] = [
   {
     id: '1',
     title: 'Get Wid Lemonade',
-    artist: 'Artist Name',
+    artist: 'Kyle Davis',
     album: 'KevOS Collection',
     duration: '3:30',
     audioUrl: '/music/Get Wid Lemonade.mp3',
   },
   {
     id: '2',
-    title: 'Obskür Bayside',
-    artist: 'Artist Name',
+    title: 'Obskur Bayside',
+    artist: 'Obskur',
     album: 'KevOS Collection',
     duration: '3:45',
-    audioUrl: '/music/Obskür Bayside Official Audio.mp3',
+    audioUrl: '/music/Obskur Bayside Official Audio.mp3',
+  },
+  {
+    id: '3',
+    title: 'Down',
+    artist: 'Jay Sean ft. Lil Wayne',
+    album: 'KevOS Collection',
+    duration: '3:30',
+    audioUrl: '/music/Jay Sean Down ft Lil Wayne Lyrics.mp3',
   },
   // Add more songs here...
 ];

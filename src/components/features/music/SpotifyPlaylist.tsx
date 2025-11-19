@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Play, ListMusic } from 'lucide-react';
+import { Play, Pause, ListMusic } from 'lucide-react';
 import { songs as localSongs, Song } from '@/data/songs';
 
 interface MusicPlaylistProps {
   onSongSelect: (song: Song) => void;
+  isPlaying: boolean;
+  setIsPlaying: (playing: boolean) => void;
 }
 
-export function SpotifyPlaylist({ onSongSelect }: MusicPlaylistProps) {
+export function SpotifyPlaylist({ onSongSelect, isPlaying, setIsPlaying }: MusicPlaylistProps) {
   const [activeSong, setActiveSong] = useState<string>('');
 
   useEffect(() => {
@@ -20,8 +22,29 @@ export function SpotifyPlaylist({ onSongSelect }: MusicPlaylistProps) {
   }, []);
 
   const handleSongClick = (song: Song) => {
-    setActiveSong(song.id);
-    onSongSelect(song);
+    if (activeSong === song.id && isPlaying) {
+      // If clicking the same song that's playing, pause it
+      setIsPlaying(false);
+    } else {
+      // If clicking a different song or paused song, select it and play
+      setActiveSong(song.id);
+      onSongSelect(song);
+      setIsPlaying(true);
+    }
+  };
+
+  const handlePlayPauseClick = (e: React.MouseEvent, song: Song) => {
+    e.stopPropagation(); // Prevent triggering parent button click
+    
+    if (activeSong === song.id) {
+      // Toggle play/pause for current song
+      setIsPlaying(!isPlaying);
+    } else {
+      // Select new song and play it
+      setActiveSong(song.id);
+      onSongSelect(song);
+      setIsPlaying(true);
+    }
   };
 
   return (
@@ -64,7 +87,7 @@ export function SpotifyPlaylist({ onSongSelect }: MusicPlaylistProps) {
           scrollbarWidth: 'thin',
           scrollbarColor: '#27272a transparent'
         }}>
-          {localSongs.map((song, index) => (
+          {localSongs.map((song) => (
             <motion.button
               key={song.id}
               onClick={() => handleSongClick(song)}
@@ -81,37 +104,24 @@ export function SpotifyPlaylist({ onSongSelect }: MusicPlaylistProps) {
                 <div className="absolute inset-0 bg-linear-to-r from-emerald-400/5 via-emerald-400/10 to-emerald-400/5 rounded-lg" />
               )}
 
-              <div className="flex items-center gap-2 relative z-10">
-                {/* Track Number / Equalizer Animation */}
-                <div className="w-7 flex items-center justify-center shrink-0">
-                  {activeSong === song.id ? (
-                    <div className="flex gap-0.5 items-end h-4">
-                      <motion.div
-                        className="w-0.5 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"
-                        animate={{ height: ['6px', '14px', '8px', '12px'] }}
-                        transition={{ duration: 0.8, repeat: Infinity }}
-                      />
-                      <motion.div
-                        className="w-0.5 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"
-                        animate={{ height: ['10px', '6px', '14px', '8px'] }}
-                        transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }}
-                      />
-                      <motion.div
-                        className="w-0.5 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"
-                        animate={{ height: ['12px', '8px', '6px', '11px'] }}
-                        transition={{ duration: 0.8, repeat: Infinity, delay: 0.4 }}
-                      />
-                    </div>
+              <div className="flex items-center gap-3 relative z-10">
+                {/* Play/Pause Button */}
+                <button
+                  onClick={(e) => handlePlayPauseClick(e, song)}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                    activeSong === song.id && isPlaying
+                      ? 'bg-emerald-400 hover:bg-emerald-300 shadow-lg shadow-emerald-400/40'
+                      : activeSong === song.id
+                      ? 'bg-emerald-400/70 hover:bg-emerald-400 shadow-md shadow-emerald-400/30'
+                      : 'bg-zinc-800/60 hover:bg-zinc-700/60 border border-zinc-700/50'
+                  }`}
+                >
+                  {activeSong === song.id && isPlaying ? (
+                    <Pause className="w-3.5 h-3.5 text-black" fill="black" />
                   ) : (
-                    <span 
-                      className={`text-tiny transition-colors duration-300 ${
-                        activeSong === song.id ? 'text-emerald-400' : 'text-zinc-600 group-hover:text-zinc-400'
-                      }`}
-                    >
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
+                    <Play className="w-3.5 h-3.5 text-white ml-0.5" fill="white" />
                   )}
-                </div>
+                </button>
 
                 {/* Song Info */}
                 <div className="flex-1 text-left min-w-0">
@@ -129,20 +139,11 @@ export function SpotifyPlaylist({ onSongSelect }: MusicPlaylistProps) {
 
                 {/* Duration */}
                 <div 
-                  className={`text-tiny shrink-0 transition-colors duration-300 ${
+                  className={`text-small shrink-0 transition-colors duration-300 ${
                     activeSong === song.id ? 'text-emerald-400' : 'text-zinc-600 group-hover:text-zinc-500'
                   }`}
                 >
                   {song.duration}
-                </div>
-
-                {/* Play button (visible on hover or active) */}
-                <div className={`w-7 h-7 flex items-center justify-center shrink-0 transition-opacity duration-300 ${
-                  activeSong === song.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                }`}>
-                  <div className="w-6 h-6 rounded-full bg-emerald-400/20 border border-emerald-400/30 flex items-center justify-center hover:bg-emerald-400/30 transition-all duration-300 shadow-lg shadow-emerald-400/10">
-                    <Play className="w-2.5 h-2.5 text-emerald-400 ml-0.5" fill="currentColor" />
-                  </div>
                 </div>
               </div>
             </motion.button>
