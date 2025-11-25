@@ -19,6 +19,7 @@ export const songs: Song[] = [
     album: 'KevOS Collection',
     duration: '3:30',
     audioUrl: '/music/Get Wid Lemonade.mp3',
+    coverArt: '/assets/Get Wid Lemonade.jpeg',
   },
   {
     id: '2',
@@ -27,6 +28,7 @@ export const songs: Song[] = [
     album: 'KevOS Collection',
     duration: '3:45',
     audioUrl: '/music/Obskur Bayside Official Audio.mp3',
+    coverArt: '/assets/obskur bayside.jpeg',
   },
   {
     id: '3',
@@ -35,6 +37,7 @@ export const songs: Song[] = [
     album: 'KevOS Collection',
     duration: '3:30',
     audioUrl: '/music/Jay Sean Down ft Lil Wayne Lyrics.mp3',
+    coverArt: '/assets/down.jpeg',
   },
   // Add more songs here...
 ];

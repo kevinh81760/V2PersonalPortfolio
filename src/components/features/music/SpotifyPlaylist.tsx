@@ -105,23 +105,54 @@ export function SpotifyPlaylist({ onSongSelect, isPlaying, setIsPlaying }: Music
               )}
 
               <div className="flex items-center gap-3 relative z-10">
-                {/* Play/Pause Button */}
-                <button
-                  onClick={(e) => handlePlayPauseClick(e, song)}
-                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
-                    activeSong === song.id && isPlaying
-                      ? 'bg-emerald-400 hover:bg-emerald-300 shadow-lg shadow-emerald-400/40'
-                      : activeSong === song.id
-                      ? 'bg-emerald-400/70 hover:bg-emerald-400 shadow-md shadow-emerald-400/30'
-                      : 'bg-zinc-800/60 hover:bg-zinc-700/60 border border-zinc-700/50'
-                  }`}
-                >
-                  {activeSong === song.id && isPlaying ? (
-                    <Pause className="w-3.5 h-3.5 text-black" fill="black" />
+                {/* Album Cover Thumbnail */}
+                <div className="w-10 h-10 rounded-md overflow-hidden shrink-0 relative">
+                  {song.coverArt ? (
+                    <>
+                      <img
+                        src={song.coverArt}
+                        alt={`${song.title} cover`}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Play/Pause Overlay */}
+                      <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
+                        activeSong === song.id && isPlaying
+                          ? 'bg-emerald-400/90'
+                          : activeSong === song.id
+                          ? 'bg-emerald-400/70'
+                          : 'bg-black/50 opacity-0 group-hover:opacity-100'
+                      }`}>
+                        <button
+                          onClick={(e) => handlePlayPauseClick(e, song)}
+                          className="w-full h-full flex items-center justify-center"
+                        >
+                          {activeSong === song.id && isPlaying ? (
+                            <Pause className="w-4 h-4 text-black" fill="black" />
+                          ) : (
+                            <Play className="w-4 h-4 text-white ml-0.5" fill="white" />
+                          )}
+                        </button>
+                      </div>
+                    </>
                   ) : (
-                    <Play className="w-3.5 h-3.5 text-white ml-0.5" fill="white" />
+                    <button
+                      onClick={(e) => handlePlayPauseClick(e, song)}
+                      className={`w-full h-full rounded-md flex items-center justify-center transition-all duration-300 ${
+                        activeSong === song.id && isPlaying
+                          ? 'bg-emerald-400 hover:bg-emerald-300 shadow-lg shadow-emerald-400/40'
+                          : activeSong === song.id
+                          ? 'bg-emerald-400/70 hover:bg-emerald-400 shadow-md shadow-emerald-400/30'
+                          : 'bg-zinc-800/60 hover:bg-zinc-700/60 border border-zinc-700/50'
+                      }`}
+                    >
+                      {activeSong === song.id && isPlaying ? (
+                        <Pause className="w-4 h-4 text-black" fill="black" />
+                      ) : (
+                        <Play className="w-4 h-4 text-white ml-0.5" fill="white" />
+                      )}
+                    </button>
                   )}
-                </button>
+                </div>
 
                 {/* Song Info */}
                 <div className="flex-1 text-left min-w-0">

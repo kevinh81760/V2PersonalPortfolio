@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion } from 'motion/react';
-import { Play, Pause, SkipBack, SkipForward, Volume2, Repeat, Shuffle } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, Repeat, Shuffle, Music } from 'lucide-react';
 
 interface MusicPlayerProps {
   currentSong: {
@@ -8,6 +8,7 @@ interface MusicPlayerProps {
     artist: string;
     album: string;
     audioUrl?: string;
+    coverArt?: string;
   };
   isPlaying: boolean;
   setIsPlaying: (playing: boolean) => void;
@@ -154,19 +155,43 @@ export function MusicPlayer({ currentSong, isPlaying, setIsPlaying }: MusicPlaye
         <div className="relative z-10 flex flex-col justify-between" style={{ minHeight: '700px' }}>
           {/* Premium OLED-style Display */}
           <div className="bg-black rounded-xl p-6 border border-zinc-800/60 shadow-[inset_0_4px_20px_rgba(0,0,0,0.9)]">
-            <div className="bg-linear-to-b from-zinc-950 via-black to-zinc-950 rounded-lg p-4 flex flex-col justify-end" style={{ minHeight: '500px' }}>
+            <div className="bg-linear-to-b from-zinc-950 via-black to-zinc-950 rounded-lg p-4 flex flex-col justify-center items-center" style={{ minHeight: '500px' }}>
+              {/* Album Cover Art */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSong.coverArt || 'no-cover'}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="mb-6 w-full max-w-[280px] aspect-square"
+                >
+                  {currentSong.coverArt ? (
+                    <img
+                      src={currentSong.coverArt}
+                      alt={`${currentSong.title} album cover`}
+                      className="w-full h-full object-cover rounded-lg shadow-2xl border border-zinc-800/50"
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-lg bg-zinc-900 border border-zinc-800/50 flex items-center justify-center">
+                      <Music className="w-24 h-24 text-zinc-700" />
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+
               {/* Song Info Display - Compact */}
-              <div className="mb-3">
-                <div className="heading-tertiary text-white mb-2 text-left truncate">
+              <div className="mb-3 w-full">
+                <div className="heading-tertiary text-white mb-2 text-center truncate">
                   {currentSong.title}
                 </div>
-                <div className="text-body text-zinc-500 text-left truncate">
+                <div className="text-body text-zinc-500 text-center truncate">
                   {currentSong.artist}
                 </div>
               </div>
 
               {/* Progress Bar - Compact */}
-              <div className="space-y-2">
+              <div className="space-y-2 w-full">
                 <div className="w-full h-1 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800/50 shadow-inner">
                   <div
                     className="h-full bg-linear-to-r from-emerald-400 via-emerald-300 to-emerald-400 shadow-lg shadow-emerald-400/30 transition-all duration-100"

@@ -34,10 +34,10 @@ function AnimatedHeader({ title, company, dates }: AnimatedHeaderProps) {
       viewport={ELEMENT_ANIMATION.viewport}
       className="mb-lg"
     >
-      <h2 className="text-[2.25rem] font-semibold text-white mb-xs leading-tight tracking-tight">
+      <h2 className="text-[2.5rem] font-semibold text-white mb-xs leading-tight tracking-tight">
         {title}
       </h2>
-      <p className="text-[0.875rem] text-zinc-400 tracking-wide">
+      <p className="text-[1rem] text-zinc-400 tracking-wide">
         {company} | {dates}
       </p>
     </motion.div>
@@ -59,7 +59,7 @@ function AnimatedSection({ heading, children }: AnimatedSectionProps) {
       viewport={ELEMENT_ANIMATION.viewport}
       className="mb-lg"
     >
-      <h3 className="text-[1.125rem] font-semibold text-white mb-sm tracking-wide">
+      <h3 className="text-[1.25rem] font-semibold text-white mb-sm tracking-wide">
         {heading}
       </h3>
       {children}
@@ -81,7 +81,7 @@ function AnimatedReflection({ reflection }: AnimatedReflectionProps) {
       viewport={ELEMENT_ANIMATION.viewport}
       className="mt-xl pt-lg border-t border-zinc-800"
     >
-      <p className="text-[1rem] text-zinc-400 italic leading-relaxed">
+      <p className="text-[1.125rem] text-zinc-400 italic leading-relaxed">
         {reflection}
       </p>
     </motion.div>
@@ -137,7 +137,7 @@ function ExperienceSection({ experience, containerRef, sectionRef }: ExperienceS
 
       {/* What I Did Section */}
       <AnimatedSection heading="What I Did">
-        <p className="text-[1rem] text-zinc-300 leading-relaxed">
+        <p className="text-[1.125rem] text-zinc-300 leading-relaxed">
           {experience.whatIDid}
         </p>
       </AnimatedSection>
@@ -146,7 +146,7 @@ function ExperienceSection({ experience, containerRef, sectionRef }: ExperienceS
       <AnimatedSection heading="How I Did It">
         <ul className="space-y-sm">
           {experience.howIDidIt.map((item, index) => (
-            <li key={index} className="text-[1rem] text-zinc-300 leading-relaxed ml-5 list-disc">
+            <li key={index} className="text-[1.125rem] text-zinc-300 leading-relaxed ml-5 list-disc">
               {item}
             </li>
           ))}
@@ -157,7 +157,7 @@ function ExperienceSection({ experience, containerRef, sectionRef }: ExperienceS
       <AnimatedSection heading="What I Used">
         <ul className="space-y-sm">
           {experience.whatIUsed.map((item, index) => (
-            <li key={index} className="text-[1rem] text-zinc-300 leading-relaxed ml-5 list-disc">
+            <li key={index} className="text-[1.125rem] text-zinc-300 leading-relaxed ml-5 list-disc">
               {item}
             </li>
           ))}
@@ -602,7 +602,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                                 : 'text-zinc-500 hover:text-zinc-300'}
                             `}
                           >
-                            <span className="block font-medium text-[1.125rem] tracking-wide leading-[1.3]">
+                            <span className="block font-medium text-[1.2rem] tracking-wide leading-[1.3]">
                               {exp.company}
                             </span>
                           </button>
