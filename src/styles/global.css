@@ -263,3 +263,53 @@ body {
   outline: 2px solid rgba(52, 211, 153, 0.5);
   outline-offset: 2px;
 }
+
+/* ============================================
+   GITHUB CALENDAR STYLING
+   ============================================ */
+
+/* Center the calendar and make it responsive */
+.github-calendar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Override react-github-calendar default styles */
+.github-calendar-wrapper > article {
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style the calendar text for better readability */
+.github-calendar-wrapper text {
+  fill: #a1a1aa !important; /* zinc-400 for readable text */
+  font-size: 14px !important;
+}
+
+/* Month labels */
+.github-calendar-wrapper text[data-level] {
+  fill: #a1a1aa !important;
+}
+
+/* Contribution count text */
+.github-calendar-wrapper > article > div:first-child {
+  color: #e4e4e7 !important; /* zinc-200 for main text */
+  font-size: 16px !important;
+}
+
+/* Legend text styling */
+.github-calendar-wrapper > article > div:last-child {
+  color: #a1a1aa !important;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Center the SVG calendar grid */
+.github-calendar-wrapper svg {
+  margin: 0 auto;
+  display: block;
+}
