@@ -1,13 +1,174 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { Github, Twitter, Mail } from 'lucide-react';
 import { MusicPlayer } from '../music/MusicPlayer';
 import { SpotifyPlaylist } from '../music/SpotifyPlaylist';
 import { GitHubCalendar } from 'react-github-calendar';
 import useWindowSize from '../../../hooks/useWindowSize';
 import Copy from '../../layout/Copy';
+import { experiences, Experience } from '../../../data/experiences';
 
 type Section = 'about' | 'projects' | 'experience' | 'audio';
+
+// Animation configuration constants
+const ELEMENT_ANIMATION = {
+  initial: { opacity: 0, scale: 0.98 },
+  animate: { opacity: 1, scale: 1 },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  viewport: { once: false, amount: 0.3 }
+};
+
+// Animated Header Component
+interface AnimatedHeaderProps {
+  title: string;
+  company: string;
+  dates: string;
+}
+
+function AnimatedHeader({ title, company, dates }: AnimatedHeaderProps) {
+  return (
+    <motion.div
+      initial={ELEMENT_ANIMATION.initial}
+      whileInView={ELEMENT_ANIMATION.animate}
+      transition={ELEMENT_ANIMATION.transition}
+      viewport={ELEMENT_ANIMATION.viewport}
+      className="mb-lg"
+    >
+      <h2 className="text-[2.25rem] font-semibold text-white mb-xs leading-tight tracking-tight">
+        {title}
+      </h2>
+      <p className="text-[0.875rem] text-zinc-400 tracking-wide">
+        {company} | {dates}
+      </p>
+    </motion.div>
+  );
+}
+
+// Animated Section Component (for content blocks)
+interface AnimatedSectionProps {
+  heading: string;
+  children: React.ReactNode;
+}
+
+function AnimatedSection({ heading, children }: AnimatedSectionProps) {
+  return (
+    <motion.div
+      initial={ELEMENT_ANIMATION.initial}
+      whileInView={ELEMENT_ANIMATION.animate}
+      transition={ELEMENT_ANIMATION.transition}
+      viewport={ELEMENT_ANIMATION.viewport}
+      className="mb-lg"
+    >
+      <h3 className="text-[1.125rem] font-semibold text-white mb-sm tracking-wide">
+        {heading}
+      </h3>
+      {children}
+    </motion.div>
+  );
+}
+
+// Animated Reflection Component
+interface AnimatedReflectionProps {
+  reflection: string;
+}
+
+function AnimatedReflection({ reflection }: AnimatedReflectionProps) {
+  return (
+    <motion.div
+      initial={ELEMENT_ANIMATION.initial}
+      whileInView={ELEMENT_ANIMATION.animate}
+      transition={ELEMENT_ANIMATION.transition}
+      viewport={ELEMENT_ANIMATION.viewport}
+      className="mt-xl pt-lg border-t border-zinc-800"
+    >
+      <p className="text-[1rem] text-zinc-400 italic leading-relaxed">
+        {reflection}
+      </p>
+    </motion.div>
+  );
+}
+
+// Animated Experience Section Component
+interface ExperienceSectionProps {
+  experience: Experience;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  sectionRef: (el: HTMLDivElement | null) => void;
+}
+
+function ExperienceSection({ experience, containerRef, sectionRef }: ExperienceSectionProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    container: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Subtle section-level fade (background layer)
+  // More subtle opacity range and scale for layered effect
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [0.3, 1, 1, 0.3]
+  );
+
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [0.98, 1, 1, 0.99]
+  );
+
+  return (
+    <motion.div
+      ref={(el) => {
+        ref.current = el;
+        sectionRef(el);
+      }}
+      data-experience-id={experience.id}
+      style={{ opacity, scale }}
+      className="min-h-screen pb-xl first:pt-0 pt-lg will-change-transform"
+    >
+      {/* Animated Header */}
+      <AnimatedHeader
+        title={experience.title}
+        company={experience.company}
+        dates={experience.dates}
+      />
+
+      {/* What I Did Section */}
+      <AnimatedSection heading="What I Did">
+        <p className="text-[1rem] text-zinc-300 leading-relaxed">
+          {experience.whatIDid}
+        </p>
+      </AnimatedSection>
+
+      {/* How I Did It Section */}
+      <AnimatedSection heading="How I Did It">
+        <ul className="space-y-sm">
+          {experience.howIDidIt.map((item, index) => (
+            <li key={index} className="text-[1rem] text-zinc-300 leading-relaxed ml-5 list-disc">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </AnimatedSection>
+
+      {/* What I Used Section */}
+      <AnimatedSection heading="What I Used">
+        <ul className="space-y-sm">
+          {experience.whatIUsed.map((item, index) => (
+            <li key={index} className="text-[1rem] text-zinc-300 leading-relaxed ml-5 list-disc">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </AnimatedSection>
+
+      {/* Reflection Quote */}
+      <AnimatedReflection reflection={experience.reflection} />
+    </motion.div>
+  );
+}
 
 interface Song {
   id: string;
@@ -34,6 +195,10 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
     duration: '0:00',
     audioUrl: ''
   });
+  const [activeExperience, setActiveExperience] = useState(experiences[0].id);
+  const experienceRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+  const experienceSectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const { width } = useWindowSize();
   const initialScale = width < 768 ? 0.4 : 0.25;
@@ -60,6 +225,52 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
     
     return () => clearInterval(interval);
   }, []);
+
+  // Intersection Observer for experience sections
+  useEffect(() => {
+    if (activeSection !== 'experience') return;
+    
+    const options = {
+      root: scrollContainerRef.current,
+      rootMargin: '-40% 0px -40% 0px', // Center-focused detection
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    };
+
+    const callback: IntersectionObserverCallback = (entries) => {
+      // Find the entry with the highest intersection ratio
+      let mostVisibleEntry: IntersectionObserverEntry | null = null;
+      let highestRatio = 0;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > highestRatio) {
+          mostVisibleEntry = entry;
+          highestRatio = entry.intersectionRatio;
+        }
+      });
+
+      // Update active experience to the most visible one
+      if (mostVisibleEntry && highestRatio > 0.1) {
+        const target = mostVisibleEntry.target as HTMLElement;
+        const expId = target.getAttribute('data-experience-id');
+        if (expId && expId !== activeExperience) {
+          setActiveExperience(expId);
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver(callback, options);
+
+    // Observe all experience sections
+    Object.values(experienceSectionRefs.current).forEach((section) => {
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [activeSection, activeExperience]);
 
   const navItems: { id: Section; label: string }[] = [
     { id: 'about', label: 'HOME' },
@@ -120,7 +331,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Github className="w-[25px] h-[25px]" strokeWidth={1.5} />
+                <Github className="w-[26px] h-[26px]" strokeWidth={1.5} />
               </motion.a>
               <motion.a
                 href="https://x.com/kevinkha_OS"
@@ -133,7 +344,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Twitter className="w-[25px] h-[25px]" strokeWidth={1.5} />
+                <Twitter className="w-[26px] h-[26px]" strokeWidth={1.5} />
               </motion.a>
               <motion.a
                 href="mailto:kevin.ha.dev@gmail.com"
@@ -144,7 +355,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Mail className="w-[25px] h-[25px]" strokeWidth={1.5} />
+                <Mail className="w-[26px] h-[26px]" strokeWidth={1.5} />
               </motion.a>
             </div>
 
@@ -349,13 +560,75 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
           )}
 
           {activeSection === 'experience' && (
-            <div>
-              <h2 className="heading-secondary text-white mb-4">
-                Experience
-              </h2>
-              <p className="text-body text-zinc-400">
-                Your experience content goes here
-              </p>
+            <div className="h-[calc(100vh-200px)] px-4 md:px-8 lg:px-12 py-8">
+              <div className="max-w-[1400px] mx-auto h-full">
+                {/* Swiss Grid Layout - 12 Columns */}
+                <div className="grid-12 h-full">
+                  {/* Left Sidebar - Company Navigation (2 columns, Sticky) */}
+                  <div className="col-span-2 sticky-col">
+                    <nav className="relative">
+                      {/* Sliding Indicator Bar */}
+                      <motion.div
+                        className="absolute left-0 w-[3px] bg-white rounded-full"
+                        animate={{
+                          top: experienceRefs.current[activeExperience]?.offsetTop || 0,
+                          height: experienceRefs.current[activeExperience]?.offsetHeight || 0,
+                        }}
+                        transition={{
+                          duration: 0.8,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
+                      />
+                      
+                      {/* Company Tabs */}
+                      <div className="flex flex-col gap-sm">
+                        {experiences.map((exp) => (
+                          <button
+                            key={exp.id}
+                            ref={(el) => {
+                              experienceRefs.current[exp.id] = el;
+                            }}
+                            onClick={() => {
+                              setActiveExperience(exp.id);
+                              experienceSectionRefs.current[exp.id]?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                              });
+                            }}
+                            className={`
+                              relative pl-6 pr-2 py-2 text-left transition-all duration-500
+                              ${activeExperience === exp.id 
+                                ? 'text-white' 
+                                : 'text-zinc-500 hover:text-zinc-300'}
+                            `}
+                          >
+                            <span className="block font-medium text-[1.125rem] tracking-wide leading-[1.3]">
+                              {exp.company}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </nav>
+                  </div>
+
+                  {/* Right Content Area - 10 columns, Scrollable */}
+                  <div 
+                    ref={scrollContainerRef}
+                    className="col-span-10 overflow-y-auto scrollbar-hide"
+                  >
+                    {experiences.map((exp) => (
+                      <ExperienceSection
+                        key={exp.id}
+                        experience={exp}
+                        containerRef={scrollContainerRef}
+                        sectionRef={(el) => {
+                          experienceSectionRefs.current[exp.id] = el;
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 

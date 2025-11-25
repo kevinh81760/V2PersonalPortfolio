@@ -127,7 +127,7 @@ body {
 .text-nav {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.0625rem;
   letter-spacing: 0.15em;
   line-height: 1.6;
 }
@@ -145,7 +145,7 @@ body {
 .text-time {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.5625rem;
   letter-spacing: 0.15em;
   line-height: 1.2;
 }
@@ -202,6 +202,142 @@ body {
   border-radius: 3px;
 }
 
+/* Luxury Scrollbar - Mercedes-inspired */
+.luxury-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.luxury-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.luxury-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.luxury-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luxury-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Hide scrollbar on mobile, show on desktop */
+@media (max-width: 768px) {
+  .luxury-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .luxury-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+/* Hide Scrollbar Completely */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================
+   UTILITY CLASSES - Swiss Grid System
+   ============================================ */
+
+/* 12-Column Grid System */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem; /* 24px - Swiss precision */
+}
+
+/* Column Span Utilities */
+.col-span-1 { grid-column: span 1; }
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
+.col-span-5 { grid-column: span 5; }
+.col-span-6 { grid-column: span 6; }
+.col-span-7 { grid-column: span 7; }
+.col-span-8 { grid-column: span 8; }
+.col-span-9 { grid-column: span 9; }
+.col-span-10 { grid-column: span 10; }
+.col-span-11 { grid-column: span 11; }
+.col-span-12 { grid-column: span 12; }
+
+/* Sticky Column Helper */
+.sticky-col {
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+}
+
+/* Grid Gap Utilities */
+.grid-gap-sm { gap: 1rem; } /* 16px */
+.grid-gap-md { gap: 1.5rem; } /* 24px */
+.grid-gap-lg { gap: 2rem; } /* 32px */
+
+/* Responsive Grid - Mobile First */
+@media (max-width: 768px) {
+  .grid-12 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .col-span-1,
+  .col-span-2,
+  .col-span-3,
+  .col-span-4,
+  .col-span-5,
+  .col-span-6,
+  .col-span-7,
+  .col-span-8,
+  .col-span-9,
+  .col-span-10,
+  .col-span-11,
+  .col-span-12 {
+    grid-column: span 1;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES - Swiss Spacing System
+   ============================================ */
+
+/* Base unit: 8px */
+.space-xs { margin: 0.5rem; }  /* 8px */
+.space-sm { margin: 1rem; }    /* 16px */
+.space-md { margin: 1.5rem; }  /* 24px */
+.space-lg { margin: 2rem; }    /* 32px */
+.space-xl { margin: 3rem; }    /* 48px */
+
+/* Margin Top */
+.mt-xs { margin-top: 0.5rem; }
+.mt-sm { margin-top: 1rem; }
+.mt-md { margin-top: 1.5rem; }
+.mt-lg { margin-top: 2rem; }
+.mt-xl { margin-top: 3rem; }
+
+/* Margin Bottom */
+.mb-xs { margin-bottom: 0.5rem; }
+.mb-sm { margin-bottom: 1rem; }
+.mb-md { margin-bottom: 1.5rem; }
+.mb-lg { margin-bottom: 2rem; }
+.mb-xl { margin-bottom: 3rem; }
+
+/* Gap Utilities for Flex/Grid */
+.gap-xs { gap: 0.5rem; }
+.gap-sm { gap: 1rem; }
+.gap-md { gap: 1.5rem; }
+.gap-lg { gap: 2rem; }
+.gap-xl { gap: 3rem; }
+
 /* ============================================
    UTILITY CLASSES - Common Patterns
    ============================================ */
@@ -218,6 +354,28 @@ body {
 
 .transition-colors-smooth {
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Mercedes-Luxury Easing Curves */
+.transition-luxury {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.transition-luxury-slow {
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.transition-luxury-medium {
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.transition-luxury-fast {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
 }
 
 /* ============================================
