@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Twitter, Mail } from 'lucide-react';
 import { MusicPlayer } from '../music/MusicPlayer';
 import { SpotifyPlaylist } from '../music/SpotifyPlaylist';
 import { GitHubCalendar } from 'react-github-calendar';
@@ -41,11 +41,18 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   // Update time every second
   useEffect(() => {
     const updateTime = () => {
-      setCurrentTime(new Date().toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: false 
-      }));
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes();
+      
+      // Convert hour 0 to 12 for display
+      if (hours === 0) {
+        hours = 12;
+      }
+      
+      // Format time as HH:MM
+      const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      setCurrentTime(formattedTime);
     };
     
     updateTime(); // Set initial time
@@ -65,43 +72,37 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
   const portfolioContent = (
     <>
       {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 border-b border-zinc-800/50 px-12 py-6 overflow-visible bg-black/80 backdrop-blur-sm">
+      <nav className="sticky top-0 z-50 border-b border-zinc-800/50 pl-6 pr-12 py-6 overflow-visible bg-black/80 backdrop-blur-sm">
         <div className="flex items-center justify-between">
-          {/* Left section - Green indicator and Navigation Items */}
-          <div className="flex items-center gap-6">
-            {/* Green status indicator */}
-            <div className="w-2 h-2 rounded-full bg-emerald-400" style={{ marginLeft: '-1px' }} />
-            
-            {/* Navigation Items */}
-            <div className="flex items-center gap-0 overflow-visible">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveSection(item.id)}
-                  className={`relative px-4 py-2 transition-all duration-300 rounded-full ${
-                    activeSection === item.id ? 'overflow-visible' : ''
+          {/* Left section - Navigation Items */}
+          <div className="flex items-center gap-0 overflow-visible">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className={`relative px-4 py-2 transition-all duration-300 rounded-full ${
+                  activeSection === item.id ? 'overflow-visible' : ''
+                }`}
+                style={
+                  activeSection === item.id
+                    ? { background: 'transparent' }
+                    : undefined
+                }
+              >
+                {/* Liquid glass effect for active tabs */}
+                {activeSection === item.id && (
+                  <div className="absolute inset-0 rounded-full border border-white/20 glass-nav" />
+                )}
+                
+                <span 
+                  className={`relative z-10 text-nav transition-colors duration-300 ${
+                    activeSection === item.id ? 'text-white' : 'text-zinc-600 hover:text-zinc-400'
                   }`}
-                  style={
-                    activeSection === item.id
-                      ? { background: 'transparent' }
-                      : undefined
-                  }
                 >
-                  {/* Liquid glass effect for active tabs */}
-                  {activeSection === item.id && (
-                    <div className="absolute inset-0 rounded-full border border-white/20 glass-nav" />
-                  )}
-                  
-                  <span 
-                    className={`relative z-10 text-nav transition-colors duration-300 ${
-                      activeSection === item.id ? 'text-white' : 'text-zinc-600 hover:text-zinc-400'
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </button>
-              ))}
-            </div>
+                  {item.label}
+                </span>
+              </button>
+            ))}
           </div>
 
           {/* Right section - Time and Icons */}
@@ -119,20 +120,20 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Github className="w-6 h-6" strokeWidth={1.5} />
+                <Github className="w-[25px] h-[25px]" strokeWidth={1.5} />
               </motion.a>
               <motion.a
-                href="https://www.linkedin.com/in/kevinh81760/"
+                href="https://x.com/kevinkha_OS"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-400 transition-colors duration-300"
-                aria-label="LinkedIn"
+                aria-label="Twitter"
                 whileHover={{
                   rotate: [0, -5, 5, -5, 5, 0],
                   transition: { duration: 0.4 }
                 }}
               >
-                <Linkedin className="w-6 h-6" strokeWidth={1.5} />
+                <Twitter className="w-[25px] h-[25px]" strokeWidth={1.5} />
               </motion.a>
               <motion.a
                 href="mailto:kevin.ha.dev@gmail.com"
@@ -143,7 +144,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   transition: { duration: 0.4 }
                 }}
               >
-                <Mail className="w-6 h-6" strokeWidth={1.5} />
+                <Mail className="w-[25px] h-[25px]" strokeWidth={1.5} />
               </motion.a>
             </div>
 
@@ -270,7 +271,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                         <img
                           src="/images/icons/star.svg"
                           alt="star"
-                          className="w-full h-full group-hover:rotate-[360deg] transition-transform duration-500 ease-in-out"
+                          className="w-full h-full group-hover:rotate-360deg transition-transform duration-500 ease-in-out"
                         />
                       </motion.div>
                     </div>
@@ -323,7 +324,7 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
               </div>
 
               {/* Bio Section */}
-              <div className="mt-48 px-4 md:px-8 lg:px-12 pb-24 flex justify-center">
+              <div className="mt-64 px-4 md:px-8 lg:px-12 pb-24 flex justify-center">
                 <div className="w-full max-w-[1400px]">
                   <Copy delay={0}>
                     <p className="text-[clamp(24px,4vw,96px)] font-semibold tracking-tight leading-[1.1] text-white">
