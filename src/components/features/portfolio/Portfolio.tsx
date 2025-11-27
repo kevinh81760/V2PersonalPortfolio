@@ -5,7 +5,9 @@ import { MusicPlayer } from '../music/MusicPlayer';
 import { SpotifyPlaylist } from '../music/SpotifyPlaylist';
 import { GitHubCalendar } from 'react-github-calendar';
 import useWindowSize from '../../../hooks/useWindowSize';
+import { useLenisScroll } from '../../../hooks/useLenisScroll';
 import Copy from '../../layout/Copy';
+import { GridShimmer } from '../../layout/GridShimmer';
 import { experiences, Experience } from '../../../data/experiences';
 
 type Section = 'about' | 'projects' | 'experience' | 'audio';
@@ -177,6 +179,7 @@ interface Song {
   album: string;
   duration: string;
   audioUrl: string;
+  coverArt?: string;
 }
 
 interface PortfolioProps {
@@ -196,12 +199,34 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
     audioUrl: ''
   });
   const [activeExperience, setActiveExperience] = useState(experiences[0].id);
+  const [hasPlayedAnimation, setHasPlayedAnimation] = useState(false);
   const experienceRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
   const experienceSectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const homeScrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const { width } = useWindowSize();
   const initialScale = width < 768 ? 0.4 : 0.25;
+
+  // Enable Lenis smooth scroll for home section
+  useLenisScroll(
+    activeSection === 'about' ? homeScrollContainerRef : { current: null },
+    {
+      duration: 1.2,
+      smoothWheel: true,
+      smoothTouch: false,
+    }
+  );
+
+  // Enable Lenis smooth scroll for experience section
+  useLenisScroll(
+    activeSection === 'experience' ? scrollContainerRef : { current: null },
+    {
+      duration: 1.2,
+      smoothWheel: true,
+      smoothTouch: false,
+    }
+  );
 
   // Update time every second
   useEffect(() => {
@@ -226,6 +251,18 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
     return () => clearInterval(interval);
   }, []);
 
+  // Track home animation played state
+  useEffect(() => {
+    if (!hasPlayedAnimation && activeSection === 'about') {
+      // Mark animation as played after it completes
+      const timeout = setTimeout(() => {
+        setHasPlayedAnimation(true);
+      }, 3000); // Wait for animation to complete (slightly longer than animation duration)
+      
+      return () => clearTimeout(timeout);
+    }
+  }, [activeSection, hasPlayedAnimation]);
+
   // Intersection Observer for experience sections
   useEffect(() => {
     if (activeSection !== 'experience') return;
@@ -236,12 +273,12 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
       threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     };
 
-    const callback: IntersectionObserverCallback = (entries) => {
+    const callback = (entries: IntersectionObserverEntry[]) => {
       // Find the entry with the highest intersection ratio
       let mostVisibleEntry: IntersectionObserverEntry | null = null;
       let highestRatio = 0;
 
-      entries.forEach((entry) => {
+      entries.forEach((entry: IntersectionObserverEntry) => {
         if (entry.isIntersecting && entry.intersectionRatio > highestRatio) {
           mostVisibleEntry = entry;
           highestRatio = entry.intersectionRatio;
@@ -249,11 +286,14 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
       });
 
       // Update active experience to the most visible one
-      if (mostVisibleEntry && highestRatio > 0.1) {
-        const target = mostVisibleEntry.target as HTMLElement;
-        const expId = target.getAttribute('data-experience-id');
-        if (expId && expId !== activeExperience) {
-          setActiveExperience(expId);
+      if (mostVisibleEntry) {
+        const entry = mostVisibleEntry as IntersectionObserverEntry;
+        if (highestRatio > 0.1) {
+          const target = entry.target as HTMLElement;
+          const expId = target.getAttribute('data-experience-id');
+          if (expId && expId !== activeExperience) {
+            setActiveExperience(expId);
+          }
         }
       }
     };
@@ -379,14 +419,23 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
           transition={{ duration: 0.4 }}
         >
           {activeSection === 'about' && (
-            <section className="relative min-h-[calc(100vh-200px)] flex flex-col">
-              <div className="px-4">
+            <div className="h-[calc(100vh-200px)]">
+              <div 
+                ref={homeScrollContainerRef}
+                className="h-full overflow-y-auto scrollbar-hide"
+              >
+                <section className="relative flex flex-col">
+                  <div className="px-4">
                 <h1 className="hidden">Kevin Ha</h1>
 
                 <motion.div
-                  initial={{
+                  initial={hasPlayedAnimation ? {
+                    scale: 1,
+                    top: "0px",
+                    y: "16px",
+                  } : {
                     scale: initialScale,
-                    top: "40%",
+                    top: "25%",
                     y: "-50%",
                   }}
                   animate={{
@@ -394,7 +443,9 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                     top: "0px",
                     y: "16px",
                   }}
-                  transition={{
+                  transition={hasPlayedAnimation ? {
+                    duration: 0
+                  } : {
                     duration: 1.6,
                     ease: [0.22, 1, 0.36, 1],
                     scale: {
@@ -415,11 +466,17 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   }}
                   className="absolute flex flex-col items-center justify-center sm:flex-row sm:gap-8 left-4 right-4 origin-center will-change-transform"
                 >
-                  <div className="overflow-hidden -mb-3 sm:mb-0">
+                  {/* Grid Shimmer Background Effect */}
+                  <div className="absolute inset-0 z-0">
+                    <GridShimmer hasPlayedAnimation={hasPlayedAnimation} />
+                  </div>
+                  <div className="overflow-hidden -mb-3 sm:mb-0 relative z-10">
                     <motion.div
-                      initial={{ y: 200 }}
+                      initial={hasPlayedAnimation ? { y: 0 } : { y: 200 }}
                       animate={{ y: 0 }}
-                      transition={{
+                      transition={hasPlayedAnimation ? {
+                        duration: 0
+                      } : {
                         duration: 1,
                         delay: 0.2,
                         ease: [0.22, 1, 0.36, 1],
@@ -432,11 +489,13 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                     </motion.div>
                   </div>
 
-                  <div className="overflow-hidden">
+                  <div className="overflow-hidden relative z-10">
                     <motion.div
-                      initial={{ y: 200 }}
+                      initial={hasPlayedAnimation ? { y: 0 } : { y: 200 }}
                       animate={{ y: 0 }}
-                      transition={{
+                      transition={hasPlayedAnimation ? {
+                        duration: 0
+                      } : {
                         duration: 1,
                         delay: width < 768 ? 0.225 : 0.2,
                         ease: [0.22, 1, 0.36, 1],
@@ -455,9 +514,11 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   <div className="flex flex-col gap-0.5 md:gap-0 md:flex-row justify-between items-center relative">
                     <div className="overflow-hidden">
                       <motion.p
-                        initial={{ y: 120 }}
+                        initial={hasPlayedAnimation ? { y: 0 } : { y: 120 }}
                         animate={{ y: 0 }}
-                        transition={{
+                        transition={hasPlayedAnimation ? {
+                          duration: 0
+                        } : {
                           duration: 1.5,
                           delay: width < 768 ? 2 : 1.9,
                           ease: [0.22, 1, 0.36, 1],
@@ -470,9 +531,11 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
 
                     <div className="hidden md:block overflow-hidden absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
                       <motion.div
-                        initial={{ y: 120 }}
+                        initial={hasPlayedAnimation ? { y: 0 } : { y: 120 }}
                         animate={{ y: 0 }}
-                        transition={{
+                        transition={hasPlayedAnimation ? {
+                          duration: 0
+                        } : {
                           duration: 1.5,
                           delay: 1.7,
                           ease: [0.22, 1, 0.36, 1],
@@ -489,9 +552,11 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
 
                     <div className="overflow-hidden">
                       <motion.p
-                        initial={{ y: 120 }}
+                        initial={hasPlayedAnimation ? { y: 0 } : { y: 120 }}
                         animate={{ y: 0 }}
-                        transition={{
+                        transition={hasPlayedAnimation ? {
+                          duration: 0
+                        } : {
                           duration: 1.5,
                           delay: width < 768 ? 2.05 : 1.9,
                           ease: [0.22, 1, 0.36, 1],
@@ -507,9 +572,11 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
 
               <div className="mt-[32vh] xs:mt-[35vh] sm:mt-[20vh] md:mt-[22vw] px-4 md:px-8 lg:px-12 flex justify-center">
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={hasPlayedAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
+                  transition={hasPlayedAnimation ? {
+                    duration: 0
+                  } : {
                     duration: 1.2,
                     delay: 2.5,
                     ease: [0.22, 1, 0.36, 1],
@@ -545,7 +612,9 @@ export function Portfolio({ embedded = false }: PortfolioProps = {}) {
                   </Copy>
                 </div>
               </div>
-            </section>
+                </section>
+              </div>
+            </div>
           )}
 
           {activeSection === 'projects' && (
